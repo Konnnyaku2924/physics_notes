@@ -675,26 +675,141 @@ $
     #cetz.canvas({
       import cetz.draw: *
 
-      rect((-1,1.8),(1,-1.8))
+      rect((-1,1.6),(1,-1.9))
       line((-2,2),(2,2), mark:(end:">", fill:black))
       line((-2,1),(2,1), mark:(end:">", fill:black))
       line((-2,0),(2,0), mark:(end:">", fill:black))
       line((-2,-1),(2,-1), mark:(end:">", fill:black))
       line((-2,-2),(2,-2), mark:(end:">", fill:black))
-      content((-0.7,1.3), $-$)
-      content((-0.7,0.3), $-$)
-      content((-0.7,-0.7), $-$)
-      content((0.7,1.3), $+$)
-      content((0.7,0.3), $+$)
-      content((0.7,-0.7), $+$)
-      line((-0.5,1.3),(0.5,1.3), mark:(end:">", fill:black))
-      line((-0.5,0.5),(0.5,0.5), mark:(end:">", fill:black))
-      line((-0.5,-0.7),(0.5,-0.7), mark:(end:">", fill:black))
+      content((-0.8,1.3), $-$)
+      content((-0.8,0.3), $-$)
+      content((-0.8,-0.7), $-$)
+      content((-0.8,-1.6), $-$)
+      content((0.8,1.3), $+$)
+      content((0.8,0.3), $+$)
+      content((0.8,-0.7), $+$)
+      content((0.8,-1.6), $+$)
+      line((0.5,1.3),(-0.5,1.3), mark:(end:">", fill:black))
+      line((0.5,0.3),(-0.5,0.3), mark:(end:">", fill:black))
+      line((0.5,-0.7),(-0.5,-0.7), mark:(end:">", fill:black))
+      line((0.5,-1.6),(-0.5,-1.6), mark:(end:">", fill:black))
     })
   ]
 ])
 
-In conductor, electric field is $bb(0)$.
+#align(center,box(width:15cm, height:6cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      rect((-1000,-1000),(1000,1000))
+      let r = 2 //radius of conductor
+      let d = 0.8  //step
+      let f = 0.4 // force
+      let k = -calc.floor(r/d)
+      let minus = ()
+      let plus = ()
+      
+      circle((0,0),radius:r)
+      while k*d <= r{
+        minus.push((-calc.sqrt(r*r - k*k*d*d),k*d))
+        plus.push((calc.sqrt(r*r - k*k*d*d),k*d))
+        //line((-15/2,k*d),(15/2,k*d), mark:(end:">", fill:black))
+        content((-calc.sqrt(r*r - k*k*d*d) + 0.2,k*d + 0.05),$-$)
+        content((calc.sqrt(r*r - k*k*d*d) - 0.2,k*d + 0.05),$+$)
+        k += d
+      }
+
+      let k = -calc.floor(r/d) - 2
+      let fac = 0.05
+      while k < 0{
+        let x = -5
+        let y = k*d
+
+        let flag = true
+
+        let i = 0
+        while flag{
+          let fx = f
+          let fy = 0
+          for i in minus{
+            let (mx,my) = i
+            let dx = mx - x
+            let dy = my - y
+            let a = calc.sqrt(dx*dx + dy*dy)
+            if fac / (a*a) < 1{
+              fx += fac * dx / (a*a*a)
+              fy += fac * dy / (a*a*a)
+            }
+          }
+          for i in plus{
+            let (mx,my) = i
+            let dx = mx - x
+            let dy = my - y
+            let a = calc.sqrt(dx*dx + dy*dy)
+            if fac / (a*a) < 1{
+              fx -= fac * dx / (a*a*a)
+              fy -= fac * dy / (a*a*a)
+            }
+          }
+          if calc.sqrt(calc.pow(x+fx,2)+calc.pow(y+fy,2)) <= r{
+            flag = false
+            let dis = calc.sqrt(calc.pow(x,2)+calc.pow(y,2))
+            if dis==0{
+            }else{
+              line((x,y),(x*r/dis,y*r/dis))
+              line((x,-y),(x*r/dis,-y*r/dis))
+              line((-x,y),(-x*r/dis,y*r/dis))
+              line((-x,-y),(-x*r/dis,-y*r/dis))
+            }
+          }else if 0 <= x+fx {
+            flag = false
+            line((x,y),(0,y), mark:(end:">", fill:black))
+            line((x,-y),(0,-y), mark:(end:">", fill:black))
+            line((-x,y),(0,y))
+            line((-x,-y),(0,-y))
+          }else{
+            //line((x,y),(x+fx,y+fy), mark:(end:">", fill:black))
+            if x < -5/2 and -5/2 < x+fx{
+              line((x,y),(x+fx,y+fy), mark:(end:">", fill:black))
+              line((x,-y),(x+fx,-(y+fy)), mark:(end:">", fill:black))
+              line((-x,y),(-(x+fx),y+fy), mark:(end:"<", fill:black))
+              line((-x,-y),(-(x+fx),-(y+fy)), mark:(end:"<", fill:black))
+            }else{
+              line((x,y),(x+fx,y+fy))
+              line((x,-y),(x+fx,-(y+fy)))
+              line((-x,y),(-(x+fx),y+fy))
+              line((-x,-y),(-(x+fx),-(y+fy)))
+            }
+            x += fx
+            y += fy
+          }
+          i += 1
+          if 100 < i{
+            flag = false
+          }
+        }
+        k += d
+      }
+
+      content((0,0),[*conductor*])
+      
+    })
+  ]
+])
+
+*In conductor, electric field is $bb(0)$. *
+(charges contiune moving while field is not $bb(0)$,)
+
+It means that electric potential is the same in metal.
+
+- *Electric field is perpendicular to surface of metal.* (metal distorts surrounding electric field)
+- *Electric charges do not appear in internal of metal.* (on surface only)
+( why? is not impossible to make field $bb(0)$ with it having charges in metal? そうかな…そうかも…引力と斥力があるから自動的に表面にでできるかね。べつに全電荷が打ち消しに貢献する必要はなく、正負がsurfaceに交互に並んでいればいい？ )
+
+
+
+
 
 //高校物理「仕事は保存される」 
 //大学の古典力学「$integral (dt K(t)-U(t))$が停留点となる経路が実現される」
