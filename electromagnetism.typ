@@ -18,7 +18,7 @@
 
 #set text(
   font: ("New Computer Modern"),
-  size: 15pt,
+  size: 16pt,
 )
 
 //#show regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]"): set text(font: "BIZ UDPGothic")
@@ -988,12 +988,81 @@ distance between plates $bold(d)$
     })
   ]
 ])
+\
+$V = E d = (4 pi k Q)/ S d\
+Q = 1 / (4 pi k) dot S/d dot V\
+$
+$
+  bold(therefore C = 1/(4 pi k) dot S/d)
+$
 
+Electric capacity depends on $k$ , $S$ ,and $d$.
 
+Where, let $epsilon = 1/(4 pi k)$ ,
+$epsilon$ is called permitivity.
+$
+  C = epsilon dot S / d
+$
+In a lower permittivity substance, strength of the  electric field is smaller.
+From $V = k dot Q / r$, 
+even with the same voltage, the amount of charge is greater.
 
+dielectric constant : $ epsilon_r = epsilon / epsilon_0$
 
+#pagebreak()
 
+=== Series Connection
 
+#align(center,box(width:15cm, height:6cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      line((0,3),(0,2))
+      line((-1,2),(1,2))
+      line((-1,1),(1,1))
+      line((0,1),(0,-1))
+      line((-1,-1),(1,-1))
+      line((-1,-2),(1,-2))
+      line((0,-2),(0,-3))
+
+      content((0,1.5), $Q_1$)
+      content((0,-1.5), $Q_2$)
+
+      line((2.5,-3),(2.5,3), mark:(start:">",end:">", fill:black))
+      content((2.8,0), $V$)
+      line((1.5,0),(1.5,3), mark:(start:">",end:">", fill:black))
+      line((1.5,0),(1.5,-3), mark:(start:">",end:">", fill:black))
+      content((1.8,1.5), $V_1$)
+      content((1.8,-1.5), $V_2$)
+
+      rect((-1.9,1.2),(1.4,-1.2), stroke:(paint:red))
+      content((-3.6,0), text(fill:red)[#highlight(fill:white)[amount of charge 0]])
+
+      /*
+      line((-4,2),(4,2))
+      line((-4,-2),(4,-2))
+      
+      for i in range(4){
+        content((i,2.2), $+$)
+        content((-i,2.2), $+$)
+        content((i,-2.2), $-$)
+        content((-i,-2.2), $-$)
+        line((i,2),(i,-2), mark:(end:">", fill:black))
+        line((-i,2),(-i,-2), mark:(end:">", fill:black))
+      }
+
+      line((5,2),(5,-2), mark:(start:">",end:">", fill:black))
+      content((4.5,2), $bold(S)$)
+      content((3.8,2.3), $bold(+Q)$)
+      content((8,0), [number of lines $4 pi k Q$])
+      content((4.6,0), $bold(d)$)
+      content((7,-1), [$ E = (4 pi k Q )/ S$])
+      */
+
+    })
+  ]
+])
 
 
 
