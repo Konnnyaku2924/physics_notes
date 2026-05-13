@@ -662,7 +662,7 @@ align(center,box(width:10cm, height:7cm, clip:true)[
 
 //0425
 * equipotential surface is perpendicular to electric line of force.*\
-( if test charge move with a direction perpendicular to electric force , work is $W = bb(F dot Delta x)$ $<=>$ potential is same constantly. )
+( if test charge move with a direction perpendicular to electric force , work is $W = bb(F dot Delta x) = 0$ $<=>$ potential is same constantly. )
 $
   1/2 m v^2 + q V = "const."
 $
@@ -1026,8 +1026,13 @@ dielectric constant : $ epsilon_r = epsilon / epsilon_0$
       line((-1,-2),(1,-2))
       line((0,-2),(0,-3))
 
-      content((0,1.5), $Q_1$)
-      content((0,-1.5), $Q_2$)
+      content((-0.1,0), highlight(fill:white)[_C_])
+
+      content((-1,2.5), $bold(+ Q)$)
+      content((-1,-2.5), $bold(- Q)$)
+
+      content((0,1.5), $C_1$)
+      content((0,-1.5), $C_2$)
 
       line((2.5,-3),(2.5,3), mark:(start:">",end:">", fill:black))
       content((2.8,0), $V$)
@@ -1064,6 +1069,41 @@ dielectric constant : $ epsilon_r = epsilon / epsilon_0$
   ]
 ])
 
+The amount of charge is $0$, because one side plate of each is connected by the conductor.
+
+$V = V_1 + V_2$
+
+$Q / C = Q / C_1 + Q / C_2$
+$(because V = Q / C)$
+
+$
+  bold(therefore C^(-1) = C_1^(-1) + C_2^(-1))
+$
+
+- V is proportional to $C^(-1)$
+//$ C = (C_1 C_2)/ (C_1 + C_2)$
+
+\
+
+=== Energy of capacitor
+
+#align(center,box(width:15cm, height:6cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      line((0,3),(0,2))
+      line((-1,2),(1,2))
+      line((-1,-2),(1,-2))
+      line((0,-2),(0,-3))
+
+
+
+      content((-1,2.5), $bold(+ Q)$)
+      content((-1,-2.5), $bold(- Q)$)
+    })
+  ]
+])
 
 
 
