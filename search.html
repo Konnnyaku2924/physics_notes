@@ -854,7 +854,7 @@
     }
 
     #chat-scroll-container {
-      max-width: 760px;
+      max-width: 1152px;
       margin: 0 auto;
       padding: 20px 16px 20px;
     }
@@ -952,7 +952,7 @@
     }
 
     .chat-input-row {
-      max-width: 760px;
+      max-width: 768px;
       margin: 0 auto;
       display: flex;
       align-items: flex-end;
@@ -1124,16 +1124,24 @@
 
     #chat-settings-panel {
       position: fixed;
-      inset-x: 0;
+      left: 0;
+      right: 0;
       bottom: 0;
       background: #f2f2f7;
       z-index: 270;
       border-radius: 20px 20px 0 0;
-      max-height: 90dvh;
+      max-height: 92dvh;
       overflow-y: auto;
-      box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.18);
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
       transform: translateY(100%);
       transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @supports not (height: 1dvh) {
+      #chat-settings-panel {
+        max-height: 92vh;
+      }
     }
 
     #chat-settings-panel.open {
@@ -1172,7 +1180,7 @@
 
     .cs-body {
       padding: 16px;
-      padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+      padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
     }
 
     .cs-section-label {
@@ -1391,14 +1399,24 @@
       font-weight: 600;
       cursor: pointer;
       transition: background 0.15s ease;
-      margin-bottom: 16px;
+      margin-bottom: 0;
     }
 
     #cs-clear-btn:hover {
       background: #fff5f5;
     }
 
-    /* Chat cursor blink */
+    /* Chat header inner wrapper — constrains content width like ConnectToLocalAI (max-w-3xl) */
+    .chat-header-inner {
+      max-width: 768px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
     .chat-cursor-blink {
       display: inline-block;
       width: 6px;
@@ -1521,16 +1539,18 @@
 
     <!-- Header -->
     <header id="chat-header">
-      <h1 id="chat-title">Physics AI</h1>
-      <div class="chat-header-actions">
-        <button class="chat-header-btn" id="chat-settings-btn">設定</button>
-        <button class="chat-header-btn" id="chat-close-btn" aria-label="検索画面に戻る">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
+      <div class="chat-header-inner">
+        <h1 id="chat-title">Physics AI</h1>
+        <div class="chat-header-actions">
+          <button class="chat-header-btn" id="chat-settings-btn">設定</button>
+          <button class="chat-header-btn" id="chat-close-btn" aria-label="検索画面に戻る">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -2362,6 +2382,41 @@
 
       // ── Open / Close animations ──────────────────────────────────────
 
+      /** Measure text pixel width using canvas — fast, no DOM needed */
+      function measureTextPx(text, cssFont) {
+        const c = document.createElement('canvas');
+        const ctx = c.getContext('2d');
+        ctx.font = cssFont;
+        return ctx.measureText(text).width;
+      }
+
+      /**
+       * Compute the geometry of the chat scroll container and
+       * where user/AI bubbles will land — must match CSS layout exactly.
+       *
+       * Chat layout:
+       *  - #chat-scroll-container: max-width 1152px, centered, px-4 (16px each side)
+       *  - .chat-msg-user: max-width 80% of content area, right-aligned
+       *  - .chat-msg-ai: full content area width (88%)
+       */
+      function chatLayout() {
+        const VW = window.innerWidth;
+        const SCROLL_MAX = 1152;
+        const SCROLL_PAD = 16;            // px-4 inside scroll container
+        const OUTER_PAD = 16;            // outer margin to keep from viewport edge
+
+        // Scroll container: centered, no wider than SCROLL_MAX, with 16px outer margins
+        const containerW = Math.min(VW - OUTER_PAD * 2, SCROLL_MAX);
+        const containerL = (VW - containerW) / 2;
+
+        // Content area (inside padding)
+        const contentW = containerW - SCROLL_PAD * 2;
+        const contentL = containerL + SCROLL_PAD;
+        const contentR = contentL + contentW;
+
+        return { VW, containerW, containerL, contentW, contentL, contentR, SCROLL_PAD };
+      }
+
       function openChatPanel() {
         if (chatIsOpen) return;
         chatIsOpen = true;
@@ -2372,8 +2427,13 @@
         const aiBox = document.getElementById('ai');
         const btnRect = btn.getBoundingClientRect();
         const inputRect = searchEl ? searchEl.getBoundingClientRect() : null;
-        const aiAnswerEl = aiBox ? aiBox.querySelector('.ai-answer') : null;
+
+        // Grab AI ANSWER element — works whether collapsed or expanded
+        const aiAnswerEl = aiBox
+          ? (aiBox.querySelector('.ai-answer') || aiBox.querySelector('[class*="ai"]'))
+          : null;
         const aiRect = aiAnswerEl ? aiAnswerEl.getBoundingClientRect() : null;
+
         const queryText = typeof _chatContextQuery !== 'undefined' ? _chatContextQuery : '';
         const answerText = typeof _chatContextAnswer !== 'undefined' ? _chatContextAnswer : '';
 
@@ -2393,38 +2453,42 @@
         // 2. Build flying ghosts
         const ghosts = [];
         if (inputRect && queryText) ghosts.push(createQueryGhost(inputRect, queryText));
-        if (aiRect) ghosts.push(createAIAnswerGhost(aiRect));
+        if (aiRect || answerText) ghosts.push(createAIAnswerGhost(aiRect, queryText, answerText));
 
         // 3. Expand panel to fullscreen
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             chatPanel.classList.add('chat-fullscreen');
 
-            // 4. Animate ghosts 60ms after expansion starts
+            // 4. Animate ghosts 80ms after expansion starts (panel is still expanding)
             setTimeout(() => {
+              const EASING = 'cubic-bezier(0.4,0,0.2,1)';
+              const DUR = '0.52s';
               const TRANSITION = [
-                'top 0.52s cubic-bezier(0.4,0,0.2,1)',
-                'left 0.52s cubic-bezier(0.4,0,0.2,1)',
-                'width 0.52s cubic-bezier(0.4,0,0.2,1)',
-                'height 0.52s cubic-bezier(0.4,0,0.2,1)',
-                'border-radius 0.52s cubic-bezier(0.4,0,0.2,1)',
-                'background 0.52s ease',
-                'opacity 0.52s ease',
-                'font-size 0.52s ease',
-                'padding 0.52s ease',
-                'border-color 0.52s ease',
+                `top ${DUR} ${EASING}`,
+                `left ${DUR} ${EASING}`,
+                `width ${DUR} ${EASING}`,
+                `height ${DUR} ${EASING}`,
+                `border-radius ${DUR} ${EASING}`,
+                `padding ${DUR} ${EASING}`,
+                `font-size ${DUR} ease`,
+                `background ${DUR} ease`,
+                `border-color ${DUR} ease`,
+                `opacity 0.18s ease`,
               ].join(',');
+
               ghosts.forEach(g => {
                 if (!g) return;
                 g.el.style.transition = TRANSITION;
                 Object.assign(g.el.style, g.targetStyle);
               });
-            }, 60);
+            }, 80);
           });
         });
 
-        // 5. Reveal chat content after animation completes
+        // 5. Reveal chat content after animation completes; then fade ghosts
         setTimeout(() => {
+          // Fade ghosts now that chat content will appear
           ghosts.forEach(g => { if (g) g.el.style.opacity = '0'; });
 
           chatHeader.style.opacity = '1';
@@ -2443,12 +2507,11 @@
               setTimeout(() => {
                 userWrap.classList.remove('ghost-ready');
                 userWrap.style.animation = 'chatFadeIn 0.3s ease-out forwards';
-
                 setTimeout(() => {
                   aiWrap.classList.remove('ghost-ready');
                   aiWrap.style.animation = 'chatFadeIn 0.3s ease-out forwards';
                   streamAnswer(aiContent, answerText, null);
-                }, 200);
+                }, 220);
               }, 80);
             } else {
               setTimeout(() => {
@@ -2458,13 +2521,14 @@
             }
           }
 
+          // Remove ghost elements from DOM
           setTimeout(() => {
             ghosts.forEach(g => { if (g && g.el.parentNode) g.el.parentNode.removeChild(g.el); });
-          }, 300);
+          }, 320);
 
           isAutoScroll = true;
           scrollChatBottom(false);
-        }, 560);
+        }, 580);
       }
 
       function closeChatPanel() {
@@ -2504,10 +2568,11 @@
       function createQueryGhost(fromRect, text) {
         const el = document.createElement('div');
         el.className = 'fly-ghost';
-        const VW = window.innerWidth;
-        const maxBubbleW = Math.min(Math.floor(VW * 0.75), 480);
-        const CHAT_HEADER_H = 56;
 
+        const HEADER_H = chatHeader.offsetHeight || 56;
+        const layout = chatLayout();
+
+        // ── Source: looks exactly like the search input ──────────────
         Object.assign(el.style, {
           top: fromRect.top + 'px',
           left: fromRect.left + 'px',
@@ -2529,59 +2594,91 @@
         el.textContent = text;
         document.body.appendChild(el);
 
+        // ── Target: looks like a right-aligned user bubble ───────────
+        // Bubble max-width is 80% of content area
+        const bubbleMaxW = Math.floor(layout.contentW * 0.80);
+        // Measure natural width of text in bubble style (14px font, 28px padding)
+        const textPx = measureTextPx(text, '14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif');
+        const bubbleW = Math.min(bubbleMaxW, Math.ceil(textPx + 28));
+        // Right-align: right edge = content right edge
+        const bubbleLeft = layout.contentR - bubbleW;
+        const bubbleTop = HEADER_H + 20;
+        const bubbleH = fromRect.height; // height stays similar (both ~44px)
+
         return {
           el, targetStyle: {
-            top: (CHAT_HEADER_H + 20) + 'px',
-            left: (VW - maxBubbleW - 16) + 'px',
-            width: maxBubbleW + 'px',
-            height: '44px',
+            top: bubbleTop + 'px',
+            left: bubbleLeft + 'px',
+            width: bubbleW + 'px',
+            height: bubbleH + 'px',
             padding: '10px 14px',
             fontSize: '14px',
             background: '#f0f0f0',
             border: '1px solid transparent',
             borderRadius: '18px 18px 4px 18px',
-            opacity: '0.95',
           }
         };
       }
 
-      function createAIAnswerGhost(fromRect) {
+      function createAIAnswerGhost(fromRect, queryText, answerText) {
         const el = document.createElement('div');
         el.className = 'fly-ghost';
-        const VW = window.innerWidth;
-        const containerW = Math.min(VW - 32, 760);
-        const CHAT_HEADER_H = 56;
-        const capH = Math.min(fromRect.height, 110);
+
+        const HEADER_H = chatHeader.offsetHeight || 56;
+        const BUBBLE_H = 44;   // approximate user bubble height
+        const layout = chatLayout();
+
+        // ── Target: left-aligned AI message area ─────────────────────
+        const aiTop = HEADER_H + 20 + BUBBLE_H + 12; // below user bubble
+        const aiLeft = layout.contentL;
+        const aiW = Math.floor(layout.contentW * 0.88); // matches .chat-msg-ai max-width
+
+        // ── Source: from AI ANSWER box, or synthesize if unavailable ─
+        const srcTop = fromRect ? fromRect.top : (aiTop - 200);
+        const srcLeft = fromRect ? fromRect.left : aiLeft;
+        const srcW = fromRect ? fromRect.width : aiW;
+        const srcH = fromRect ? Math.min(fromRect.height, 120) : 80;
 
         Object.assign(el.style, {
-          top: fromRect.top + 'px',
-          left: fromRect.left + 'px',
-          width: fromRect.width + 'px',
-          height: capH + 'px',
+          top: srcTop + 'px',
+          left: srcLeft + 'px',
+          width: srcW + 'px',
+          height: srcH + 'px',
           padding: '16px',
           background: '#fafafa',
           border: '1px solid #e0e0e0',
           borderRadius: '16px',
           opacity: '1',
           boxSizing: 'border-box',
+          overflow: 'hidden',
+          fontSize: '13px',
+          color: '#555',
+          lineHeight: '1.5',
         });
+
+        // Show a snippet of the answer text in the ghost
+        const snippet = answerText
+          ? answerText.replace(/[#*`\[\]]/g, '').slice(0, 120)
+          : '…';
         el.innerHTML = `
-        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:8px">AI Answer</div>
-        <div style="font-size:13px;color:#555;line-height:1.5;overflow:hidden;max-height:60px">...</div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:6px">AI Answer</div>
+        <div style="overflow:hidden;max-height:60px;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">${snippet}</div>
       `;
         document.body.appendChild(el);
 
+        // Target: arrive at where the AI message bubble will be
         return {
           el, targetStyle: {
-            top: (CHAT_HEADER_H + 20 + 44 + 16) + 'px',
-            left: Math.max(16, (VW - containerW) / 2) + 'px',
-            width: containerW + 'px',
-            height: '70px',
-            padding: '14px 16px',
+            top: aiTop + 'px',
+            left: aiLeft + 'px',
+            width: aiW + 'px',
+            height: '60px',
+            padding: '12px 14px',
             background: '#ffffff',
             border: '1px solid transparent',
-            borderRadius: '0px',
-            opacity: '0',
+            borderRadius: '4px',
+            fontSize: '14px',
+            opacity: '1',
           }
         };
       }
