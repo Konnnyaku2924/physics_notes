@@ -1325,7 +1325,7 @@
       const words = q.split(' ').filter(Boolean);
       if (!words.length) return null;
       const idx = _buildIndex(allData);
-      return _getCandidates(idx, allData, words)
+      const _results1 = _getCandidates(idx, allData, words)
         .map(item => {
           let score = 0;
           if (item.questions.some(qq => qq.toLowerCase() === q)) score += 10;
@@ -1335,12 +1335,24 @@
             if (item.search_text.includes(w)) score += 1;
             score += _typoScore(w, item.search_text);
             score += _ngramScore(w, item.search_text);
+            // ① keywords ブースト
+            item.keywords?.forEach(k => { if (k.toLowerCase().includes(w)) score += 2; });
           });
           item.synonyms?.forEach(s => words.forEach(w => { if (s.includes(w)) score += 2; }));
+          // ③ フレーズボーナス（隣接単語ペア）
+          for (let i = 0; i < words.length - 1; i++) {
+            const phrase = words[i] + words[i + 1];
+            if (item.search_text.includes(phrase)) score += 2;
+          }
           return { ...item, score: score * (item.priority || 1) };
         })
         .filter(i => i.score > 0)
-        .sort((a, b) => b.score - a.score)[0] || null;
+        .sort((a, b) => b.score - a.score);
+      // ② related ブースト（上位3件の related に含まれるアイテムを +0.5）
+      const _topRelated1 = new Set(_results1.slice(0, 3).flatMap(r => r.related || []));
+      _results1.forEach(r => { if (_topRelated1.has(r.id)) r.score += 0.5; });
+      _results1.sort((a, b) => b.score - a.score);
+      return _results1[0] || null;
     }
 
     modalBody.addEventListener('wheel', () => { if (isStreaming) isUserScrolling = true; }, { passive: true });
@@ -1594,12 +1606,23 @@
                 if (item.search_text.includes(w)) score += 1;
                 score += typoScore(w, item.search_text);
                 score += ngramScore(w, item.search_text);
+                // ① keywords ブースト
+                item.keywords?.forEach(k => { if (k.toLowerCase().includes(w)) score += 2; });
               });
               item.synonyms?.forEach(s => words.forEach(w => { if (s.includes(w)) score += 2; }));
+              // ③ フレーズボーナス（隣接単語ペア）
+              for (let i = 0; i < words.length - 1; i++) {
+                const phrase = words[i] + words[i + 1];
+                if (item.search_text.includes(phrase)) score += 2;
+              }
               return { ...item, score: score * (item.priority || 1) };
             })
             .filter(i => i.score > 0)
             .sort((a, b) => b.score - a.score);
+          // ② related ブースト（上位3件の related に含まれるアイテムを +0.5）
+          const _topRelated2 = new Set(results.slice(0, 3).flatMap(r => r.related || []));
+          results.forEach(r => { if (_topRelated2.has(r.id)) r.score += 0.5; });
+          results.sort((a, b) => b.score - a.score);
 
           aiBox.innerHTML = '';
           resultsBox.innerHTML = '';

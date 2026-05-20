@@ -2020,12 +2020,23 @@
             if (item.search_text.includes(w)) score += 1;
             score += _typoScore(w, item.search_text);
             score += _ngramScore(w, item.search_text);
+            // ① keywords ブースト
+            item.keywords?.forEach(k => { if (k.toLowerCase().includes(w)) score += 2; });
           });
           item.synonyms?.forEach(s => words.forEach(w => { if (s.includes(w)) score += 2; }));
+          // ③ フレーズボーナス（隣接単語ペア）
+          for (let i = 0; i < words.length - 1; i++) {
+            const phrase = words[i] + words[i + 1];
+            if (item.search_text.includes(phrase)) score += 2;
+          }
           return { ...item, score: score * (item.priority || 1) };
         })
         .filter(i => i.score > 0)
         .sort((a, b) => b.score - a.score);
+      // ② related ブースト（上位3件の related に含まれるアイテムを +0.5）
+      const _topRelated1 = new Set(results.slice(0, 3).flatMap(r => r.related || []));
+      results.forEach(r => { if (_topRelated1.has(r.id)) r.score += 0.5; });
+      results.sort((a, b) => b.score - a.score);
       return results[0] || null;
     }
 
@@ -2077,12 +2088,23 @@
                 if (item.search_text.includes(w)) score += 1;
                 score += _typoScore(w, item.search_text);
                 score += _ngramScore(w, item.search_text);
+                // ① keywords ブースト
+                item.keywords?.forEach(k => { if (k.toLowerCase().includes(w)) score += 2; });
               });
               item.synonyms?.forEach(s => words.forEach(w => { if (s.includes(w)) score += 2; }));
+              // ③ フレーズボーナス（隣接単語ペア）
+              for (let i = 0; i < words.length - 1; i++) {
+                const phrase = words[i] + words[i + 1];
+                if (item.search_text.includes(phrase)) score += 2;
+              }
               return { ...item, score: score * (item.priority || 1) };
             })
             .filter(i => i.score > 0)
             .sort((a, b) => b.score - a.score);
+          // ② related ブースト（上位3件の related に含まれるアイテムを +0.5）
+          const _topRelated2 = new Set(results.slice(0, 3).flatMap(r => r.related || []));
+          results.forEach(r => { if (_topRelated2.has(r.id)) r.score += 0.5; });
+          results.sort((a, b) => b.score - a.score);
 
           aiBox.innerHTML = '';
           resultsBox.innerHTML = '';
