@@ -13,6 +13,8 @@
         "synonyms": [
             "physics"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00002",
@@ -21,8 +23,8 @@
             "00045"
         ],
         "updated_at": "2026-04-28",
-        "search_text": "物理とは何か 物理 ぶつり とは 何か なにか 世界 せかい physics",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00002",
@@ -44,6 +46,8 @@
             "force",
             "mechanics"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00001",
@@ -54,8 +58,8 @@
             "00045"
         ],
         "updated_at": "2026-04-28",
-        "search_text": "力学とは何か 力学 りきがく とは 何か なにか 物理 ぶつり energy work force mechanics",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00003",
@@ -84,14 +88,16 @@
             "potential energy",
             "electric potential"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00001",
             "00002"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "電位とは何か でんい 電磁気 でんじき 電磁気学 でんじきがく 電位 とは 何か なにか 位置エネルギー いちえねるぎー 位置 いち エネルギー えねるぎー ポテンシャル ぽてんしゃる 電気 でんき 仕事 しごと 力 ちから electricity electric potential energy",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00004",
@@ -113,13 +119,15 @@
             "integration",
             "baumkuchen integration"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00005"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "なぜ円の面積はπr^2なのか なぜ えんの めんせきは πr^2 なのか 円 えん 面積 めんせき 理由 りゆう 円周積分 えんしゅうせきぶん バウムクーヘン積分 ばうむくーへんせきぶん why is the area of a circle pi r^2 why is area of circle pi r^2 area of circle circumference integration",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00005",
@@ -139,13 +147,15 @@
             "spherical trigonometry",
             "integration"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00004"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "なぜ球の表面積は4πr^2なのか なぜ きゅうの ひょうめんせきは 4πr^2 なのか 球 きゅう 表面積 ひょうめんせき 理由 りゆう 球面三角法 きゅうめんさんかくほう 積分 せきぶん why is the surface area of a sphere 4pi r^2 why is surface area of sphere 4pi r^2 surface area of sphere spherical trigonometry integration",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00006",
@@ -167,14 +177,16 @@
             "equation of motion",
             "conservative force"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00002",
             "00003"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "なぜh上がるとmghのpotentialが得られるか なぜ h だけ 上がる あがる と mgh の ポテンシャル ぽてんしゃる が 得られる えられる か 位置 いち エネルギー えねるぎー 仕事 しごと 運動方程式 うんどうほうていしき 保存 ほぞん 力 ちから 力学 りきがく why is mgh the potential energy when moved up by h potential energy work equation of motion conservative force",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00007",
@@ -192,14 +204,16 @@
             "potential energy",
             "work"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00002",
             "00003"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "なぜか ポテンシャル ぽてんしゃる エネルギー えねるぎー の 差 さ 場 ば が 行った おこなった 仕事 しごと energy 仕事をする能力 しごとをするのうりょく potential 位置 いち",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00008",
@@ -219,14 +233,16 @@
             "potential",
             "electric potential"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00003",
             "00010"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "電場 でんば 電位 でんい 関係 かんけい field potential 依存 いぞん 位置 いち ポテンシャル ぽてんしゃる",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00009",
@@ -246,13 +262,15 @@
             "integration",
             "work"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00007"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "r^-2 あーる まいなす - 2 に 乗 じょう 比例 ひれい 力 ちから potential r^-1 あーる まいなす - 1 いち 乗 なぜ 微小 びしょう 距離 きょり 仕事 しごと 積分 せきぶん 無限遠 むげんえん 位置 いち ポテンシャル ぽてんしゃる",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00010",
@@ -275,14 +293,16 @@
             "electric field",
             "gradient"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00003",
             "00008"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "なぜ 電位 でんい 傾き かたむき 電場 でんば 強さ つよさ 等電位線 とうでんいせん 微分 びぶん 積分 せきぶん 静電気力 せいでんきりょく 位置エネルギー いちえねるぎー 位置 いち ポテンシャル ぽてんしゃる potential",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00011",
@@ -303,13 +323,15 @@
             "electric field line",
             "orthogonal"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00010"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "なぜ 等電位線 とうでんいせん 等電位面 とうでんいめん 電気力線 でんきりきせん 直行 直交 ちょっこう 仕事 しごと ゼロ ぜろ 変位 へんい 力 ちから 垂直 すいちょく エネルギー えねるぎー 位置 いち ポテンシャル ぽてんしゃる potential 位置エネルギー いちえねるぎー",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00012",
@@ -327,11 +349,13 @@
             "positive charge",
             "hole"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [],
         "updated_at": "2026-04-29",
-        "search_text": "プラス ぷらす 正電荷 せいでんか 電荷 でんか 物理的実態 ぶつりてきじったい 物理的 ぶつりてき 実態 じったい ホール ほーる 穴ボコ あなぼこ positive charge hole",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00013",
@@ -352,13 +376,15 @@
             "electric potential",
             "universal gravitation"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00009"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "点電荷 てんでんか まわり 電位 でんい なぜ 分母 ぶんぼ r 1乗 いちじょう 万有引力 ばんゆういんりょく 仕事 しごと 無限遠 むげんえん 位置 いち ポテンシャル ぽてんしゃる potential 位置エネルギー いちえねるぎー",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00014",
@@ -377,13 +403,15 @@
             "scalar",
             "joule"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00003"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "電位 でんい なぜ スカラー すからー 単位 たんい ジュール じゅーる 位置エネルギー いちえねるぎー 電場 でんば 位置 いち ポテンシャル ぽてんしゃる potential",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00015",
@@ -402,11 +430,13 @@
             "repulsion",
             "Coulomb force"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 1,
         "related": [],
         "updated_at": "2026-04-29",
-        "search_text": "プラス同士 ぷらすどうし 正電荷 せいでんか 電荷 でんか 同士 どうし 離れる はなれる 方向 ほうこう 力 ちから 働く はたらく なぜ 反発 はんぱつ 斥力 せきりょく クーロン くーろん 電場 でんば repulsion positive charge",
-        "_note": "提供ファイル内に回答が未記載"
+        "_note": "提供ファイル内に回答が未記載",
+        "search_text": ""
     },
     {
         "id": "00016",
@@ -423,14 +453,16 @@
             "energy",
             "work"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00002",
             "00007"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "エネルギー えねるぎー とは 物体 ぶったい 仕事 しごと 能力 のうりょく",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00017",
@@ -449,13 +481,15 @@
             "conservation of mechanical energy",
             "conservative force"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00018"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "力学的エネルギー保存則 りきがくてきえねるぎーほぞんそく 使える つかえる いつ 保存力 ほぞんりょく 摩擦力 まさつりょく 非保存力 ひほぞんりょく",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00018",
@@ -474,13 +508,15 @@
             "conservative force",
             "path independent"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00017"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "保存力 ほぞんりょく なに 仕事 しごと 経路 けいろ 始点 してん 終点 しゅうてん 依存 いぞん",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00019",
@@ -501,13 +537,15 @@
             "electric field",
             "surface charge"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00020"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "なぜ 導体 どうたい 電場 でんば かけた 正の電荷 せいのでんか 表面 ひょうめん できる 内部 ないぶ 電子 でんし 運動 うんどう エネルギー保存則 えねるぎーほぞんそく",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00020",
@@ -529,13 +567,15 @@
             "free electron",
             "equipotential"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00019"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "チャージ ちゃーじ 移動 いどう 導体内 どうたいない 電場 でんば 残る のこる おかしい 背理法 はいりほう 自由電子 じゆうでんし 電流 でんりゅう 等電位 とうでんい",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00021",
@@ -553,14 +593,16 @@
             "velocity",
             "conservation of energy"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00017",
             "00022"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "vb 求める もとめる 方法 ほうほう 力学的エネルギー保存則 りきがくてきえねるぎーほぞんそく 速度 そくど",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00022",
@@ -578,13 +620,15 @@
             "potential energy",
             "kinetic energy"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 1,
         "related": [
             "00021"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "mgh mv^2 位置エネルギー いちえねるぎー 運動エネルギー うんどうえねるぎー 和 わ 保存 ほぞん 位置 いち ポテンシャル ぽてんしゃる potential",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00023",
@@ -605,14 +649,16 @@
             "conductor",
             "perpendicular"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00011",
             "00020"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "電気力線 でんきりきせん 導体 どうたい 表面 ひょうめん 垂直 すいちょく なぜ 等電位面 とうでんいめん 仕事 しごと",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00024",
@@ -633,13 +679,15 @@
             "electron",
             "electroscope"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00012"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "なぜ プラス ぷらす 移動 いどう しない 帯電体 たいでんたい 電子 でんし 束縛 そくばく 箔検電器 はくけんでんき 穴ボコ あなぼこ",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00025",
@@ -660,13 +708,15 @@
             "earth",
             "conductor"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00026"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "胴体 どうたい 導体 どうたい 地球 ちきゅう つなぐ 0V ゼロ ぜろ ボルト ぼると なぜ アース あーす 電場 でんば",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00026",
@@ -687,13 +737,15 @@
             "ground wire",
             "static electricity"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00025"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "なぜ 電化製品 でんかせいひん アース あーす 接地 せっち 洗濯機 せんたくき 帯電 たいでん 静電気 せいでんき 漏電 ろうでん 電気回路 でんきかいろ",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00027",
@@ -712,13 +764,15 @@
             "shelter",
             "car"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 1,
         "related": [
             "00028"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "建物 たてもの ない 雷 かみなり 鳴っている なっている 生き延びる いきのびる 避難 ひなん 車の中 くるまのなか",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00028",
@@ -742,13 +796,15 @@
             "electrostatic shielding",
             "Faraday cage"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00027"
         ],
         "updated_at": "2026-04-29",
-        "search_text": "車の中 くるまのなか なぜ 雷 かみなり 安全 あんぜん 絶縁破壊 ぜつえんはかい 導体 どうたい 胴体 ボディ ぼでぃ 等電位 とうでんい シールド効果 しーるどこうか 静電遮蔽 せいでんしゃへい アルミ あるみ 同軸ケーブル どうじくけーぶる 建物 たてもの ない 雷 かみなり 鳴っている なっている 生き延びる いきのびる 避難 ひなん 車の中 くるまのなか 導体 どうたい 胴体 静電遮蔽 せいでんしゃへい シールド しーるど 等電位 とうでんい 電位差 でんいさ 絶縁破壊 ぜつえんはかい",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00029",
@@ -769,6 +825,8 @@
             "equation of motion",
             "Newton's second law"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00002",
@@ -778,8 +836,8 @@
             "00044"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "運動方程式 うんどうほうていしき ニュートン にゅーとん 第2法則 加速度 かそくど 力 ちから equation of motion 運動の法則 うんどうのほうそく",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00030",
@@ -798,6 +856,8 @@
         "synonyms": [
             "conservation of mechanical energy"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00002",
@@ -807,8 +867,8 @@
             "00045"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "力学的エネルギー保存則 りきがくてきえねるぎーほぞんそく 保存則 ほぞんそく 位置エネルギー いちえねるぎー 運動エネルギー うんどうえねるぎー 重力 じゅうりょく 弾性力 だんせいりょく",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00031",
@@ -829,6 +889,8 @@
             "conservation of momentum",
             "coefficient of restitution"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00002",
@@ -837,8 +899,8 @@
             "00041"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "運動量保存則 うんどうりょうほぞんそく 運動量 うんどうりょう 保存則 ほぞんそく 衝突 しょうとつ はねかえり係数 はねかえりけいすう 反発係数 はんぱつけいすう 弾性衝突 だんせいしょうとつ",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00032",
@@ -856,6 +918,8 @@
         "synonyms": [
             "Coulomb's law"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00028",
@@ -864,8 +928,8 @@
             "00045"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "クーロンの法則 くーろんのほうそく クーロン力 くーろんりょく 電荷 でんか 静電気力 せいでんきりょく 引力 いんりょく 斥力 せきりょく 比例定数 ひれいていすう Coulomb's law",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00033",
@@ -887,6 +951,8 @@
             "Faraday's law",
             "Lenz's law"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00028",
@@ -894,8 +960,8 @@
             "00046"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "電磁誘導 でんじゆうどう 誘導起電力 ゆうどうきでんりょく ファラデー ふぁらでー レンツ れんつ 磁束 じそく 導体 どうたい 胴体 コイル こいる",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00034",
@@ -914,6 +980,8 @@
         "synonyms": [
             "simple harmonic motion"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00029",
@@ -922,8 +990,8 @@
             "00044"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "単振動 たんしんどう ばね 振り子 ふりこ 復元力 ふくげんりょく 周期 しゅうき 角振動数 かくしんどうすう 三角関数 さんかくかんすう",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00035",
@@ -943,14 +1011,16 @@
             "capacitor",
             "capacitance"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00032",
             "00046"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "コンデンサー こんでんさー 静電容量 せいでんようりょう 電気容量 でんきようりょう 電荷 でんか 導体 どうたい 静電エネルギー せいでんえねるぎー capacitor capacitance",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00036",
@@ -968,14 +1038,16 @@
         "synonyms": [
             "first law of thermodynamics"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00030",
             "00041"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "熱力学第一法則 ねつりきがくだいいちほうそく 内部エネルギー ないぶえねるぎー 熱量 ねつりょう 仕事 しごと 断熱変化 だんねつへんか 等温変化 とうおんへんか 状態方程式 じょうたいほうていしき",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00037",
@@ -995,6 +1067,8 @@
             "wavelength",
             "frequency"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00034",
@@ -1003,8 +1077,8 @@
             "00047"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "波動 はどう 波の基本式 なみのきほんしき 波長 はちょう 振動数 しんどうすう 周期 しゅうき 速さ はやさ wave wavelength frequency",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00038",
@@ -1022,13 +1096,15 @@
         "synonyms": [
             "Doppler effect"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00037"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "ドップラー効果 どっぷらーこうか ドップラ ドップラー 音速 おんそく 救急車 きゅうきゅうしゃ サイレン さいれん 振動数 しんどうすう",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00039",
@@ -1047,6 +1123,8 @@
             "Young's double slit experiment",
             "interference"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00037",
@@ -1054,8 +1132,8 @@
             "00047"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "ヤングの実験 やんぐのじっけん ヤングの干渉実験 やんぐのかんしょうじっけん 干渉縞 かんしょうじま 明線 めいせん スリット すりっと 波長 はちょう Young's double slit interference",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00040",
@@ -1073,6 +1151,8 @@
         "synonyms": [
             "Lorentz force"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00032",
@@ -1080,8 +1160,8 @@
             "00044"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "ローレンツ力 ろーれんつりょく 荷電粒子 かでんりゅうし 磁場 じば 導体 どうたい フレミングの左手の法則 ふれみんぐのひだりてのほうそく Lorentz force",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00041",
@@ -1099,14 +1179,16 @@
         "synonyms": [
             "kinetic theory of gases"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00031",
             "00036"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "気体の分子運動論 きたいのぶんしうんどうろん 圧力 あつりょく 温度 おんど 平均運動エネルギー へいきんうんどうえねるぎー ボルツマン定数 ぼるつまんていすう 状態方程式 じょうたいほうていしき",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00042",
@@ -1126,6 +1208,8 @@
             "photoelectric effect",
             "work function"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00039",
@@ -1133,8 +1217,8 @@
             "00048"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "光電効果 こうでんこうか 光電子 こうでんし 仕事関数 しごとかんすう アインシュタイン あいんしゅたいん 光量子仮説 こうりょうしかせつ 限界振動数 げんかいしんどうすう photoelectric work function",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00043",
@@ -1152,6 +1236,8 @@
         "synonyms": [
             "Bohr model"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00042",
@@ -1159,8 +1245,8 @@
             "00048"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "ボーアの原子模型 ぼーあのげんしもけい 水素原子 すいそげんし 量子条件 りょうしじょうけん 振動数条件 しんどうすうじょうけん エネルギー準位 えねるぎーじゅんい",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00044",
@@ -1179,6 +1265,8 @@
             "circular motion",
             "centripetal force"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00029",
@@ -1188,8 +1276,8 @@
             "00045"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "円運動 えんうんどう 角速度 かくそくど 向心力 こうしんりょく 遠心力 えんしんりょく 等速円運動 とうそくえんうんどう",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00045",
@@ -1208,6 +1296,8 @@
             "universal gravitation",
             "Kepler's laws"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00029",
@@ -1215,8 +1305,8 @@
             "00044"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "万有引力の法則 ばんゆういんりょくのほうそく 万有引力定数 ばんゆういんりょくていすう ケプラーの法則 けぷらーのほうそく 宇宙 うちゅう 重力 じゅうりょく",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00046",
@@ -1234,14 +1324,16 @@
         "synonyms": [
             "Kirchhoff's circuit laws"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00033",
             "00035"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "キルヒホッフの法則 きるひほっふのほうそく 電流則 でんりゅうそく 電圧則 でんあつそく 回路 かいろ 抵抗 ていこう 起電力 きでんりょく 閉回路 へいかいろ",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00047",
@@ -1260,14 +1352,16 @@
             "Snell's law",
             "refraction"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00037",
             "00039"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "屈折の法則 くっせつのほうそく スネルの法則 すねるのほうそく 屈折率 くっせつりつ 相対屈折率 そうたいくっせつりつ 全反射 ぜんはんしゃ 波長 はちょう Snell's law refraction",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00048",
@@ -1286,14 +1380,16 @@
             "mass defect",
             "binding energy"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00042",
             "00043"
         ],
         "updated_at": "2026-04-30",
-        "search_text": "質量欠損 しつりょうけっそん 結合エネルギー けつごうえねるぎー アインシュタイン あいんしゅたいん 相対性理論 そうたいせいりろん 原子核 げんしかく 核反応 かくはんのう",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00049",
@@ -1314,13 +1410,15 @@
             "charging",
             "electron"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035"
         ],
         "updated_at": "2026-05-12",
-        "search_text": "コンデンサー こんでんさー 電池 でんち 繋ぐ つなぐ 極板 きょくばん 電子 でんし 動かされる うごかされる 充電 じゅうでん ポテンシャル ぽてんしゃる",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00050",
@@ -1338,13 +1436,15 @@
             "capacitor",
             "discharge"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035"
         ],
         "updated_at": "2026-05-12",
-        "search_text": "充電満タン じゅうでんまんたん コンデンサー こんでんさー 線 せん 繋ぐ つなぐ 放電 ほうでん 電流 でんりゅう",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00051",
@@ -1364,13 +1464,15 @@
             "equilibrium",
             "voltage"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035"
         ],
         "updated_at": "2026-05-12",
-        "search_text": "コンデンサー こんでんさー 充電完了 じゅうでんかんりょう 安定 あんてい 電位差 でんいさ 導体 どうたい 胴体 電子 でんし",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00052",
@@ -1390,14 +1492,16 @@
             "electric field",
             "voltage"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00010"
         ],
         "updated_at": "2026-05-12",
-        "search_text": "極板 きょくばん 距離 きょり d 電場 でんば 強さ つよさ 電圧 でんあつ E=V/d",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00053",
@@ -1415,13 +1519,15 @@
             "condenser",
             "etymology"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 1,
         "related": [
             "00035"
         ],
         "updated_at": "2026-05-12",
-        "search_text": "コンデンサー こんでんさー コンデンス こんでんす 意味 いみ 語源 ごげん 密集 みっしゅう 練乳 れんにゅう コンデンスミルク",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00054",
@@ -1442,14 +1548,16 @@
             "electric flux",
             "Gauss law"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00010",
             "00035"
         ],
         "updated_at": "2026-05-12",
-        "search_text": "電気力線 でんきりきせん 本数 ほんすう 式 しき 電場 でんば 電荷 でんか 面積 めんせき ガウス がうす 放射 ほうしゃ",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00055",
@@ -1469,13 +1577,15 @@
             "capacitance",
             "electric capacity"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035"
         ],
         "updated_at": "2026-05-12",
-        "search_text": "電気容量 でんきようりょう 静電容量 せいでんようりょう コンデンサー こんでんさー 極板 きょくばん 電場 でんば",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00056",
@@ -1494,13 +1604,15 @@
             "capacitance",
             "capacitor"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035"
         ],
         "updated_at": "2026-05-12",
-        "search_text": "比例定数 ひれいていすう キャパ きゃぱ キャパシタンス 電気量 でんきりょう 絶縁破壊 ぜつえんはかい コンデンサー こんでんさー",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00057",
@@ -1521,13 +1633,15 @@
             "charging",
             "battery"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035"
         ],
         "updated_at": "2026-05-12",
-        "search_text": "コンデンサー こんでんさー 充電 じゅうでん 方法 ほうほう 電池 でんち 電子 でんし 穴ボコ あなぼこ",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00058",
@@ -1547,14 +1661,16 @@
             "dielectric",
             "capacitance"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00059"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "大容量 だいようりょう コンデンサー こんでんさー 誘電体 ゆうでんたい 誘電率 ゆうでんりつ 絶縁破壊 ぜつえんはかい 極板面積 きょくばんめんせき 耐電圧 たいでんあつ 作り方 つくりかた dielectric capacitor",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00059",
@@ -1575,14 +1691,16 @@
             "polarization",
             "capacitance"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00058"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "誘電体 ゆうでんたい 挟む はさむ 電気容量 でんきようりょう 上がる あがる なぜ 分極 ぶんきょく 誘電分極 ゆうでんぶんきょく 電場 でんば 電圧 でんあつ dielectric polarization capacitance",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00060",
@@ -1600,13 +1718,15 @@
             "lead acid battery",
             "battery"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00069"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "鉛蓄電池 なまりちくでんち 鉛 なまり 有害 ゆうがい なぜ 使われる つかわれる 起電力 きでんりょく 電池 でんち lead acid battery",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00061",
@@ -1626,14 +1746,16 @@
             "parallel connection",
             "voltage"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00063"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "コンデンサー こんでんさー 並列接続 へいれつせつぞく 並列 へいれつ 同じ おなじ 電圧 でんあつ なぜ 等電位 とうでんい 導体 どうたい parallel capacitor",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00062",
@@ -1653,6 +1775,8 @@
             "equipotential",
             "electric field"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00019",
@@ -1660,8 +1784,8 @@
             "00025"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "導体 どうたい 表面 ひょうめん 電荷 でんか 内部 ないぶ 電場 でんば ゼロ ぜろ 等電位 とうでんい 関係 かんけい 仕事 しごと 移動 いどう conductor equipotential",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00063",
@@ -1681,14 +1805,16 @@
             "parallel",
             "capacitance"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00061"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "並列接続 へいれつせつぞく コンデンサー こんでんさー 合成容量 ごうせいようりょう 足し算 たしざん なぜ 等電位 とうでんい 導線 どうせん parallel capacitance",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00064",
@@ -1707,14 +1833,16 @@
             "capacitor",
             "series connection"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00066"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "コンデンサー こんでんさー 直列接続 ちょくれつせつぞく 直列 ちょくれつ 間 あいだ 電位差 でんいさ 生じる しょうじる なぜ 静電誘導 せいでんゆうどう series capacitor",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00065",
@@ -1734,14 +1862,16 @@
             "image formula",
             "optics"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00039",
             "00047"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "写像公式 しゃぞうこうしき レンズ れんず 焦点距離 しょうてんきょり 像 ぞう 物体 ぶったい 距離 きょり 1/f 意味 いみ lens equation optics",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00066",
@@ -1761,14 +1891,16 @@
             "conductor",
             "series"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00064"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "極板間 きょくばんかん 導体 どうたい 挿入 そうにゅう 直列接続 ちょくれつせつぞく 等価回路 とうかかいろ なぜ コンデンサー こんでんさー series conductor",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00067",
@@ -1788,14 +1920,16 @@
             "series",
             "withstanding voltage"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00066"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "直列接続 ちょくれつせつぞく コンデンサー こんでんさー 耐電圧 たいでんあつ 意味 いみ なんのため 目的 もくてき 電気容量 でんきようりょう 電圧 でんあつ series voltage",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00068",
@@ -1815,14 +1949,16 @@
             "energy",
             "battery"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00075"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "コンデンサー こんでんさー エネルギー えねるぎー 充電 じゅうでん どこから どこ もらった 電池 でんち 蓄える たくわえる capacitor energy battery",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00069",
@@ -1842,14 +1978,16 @@
             "electrochemical cell",
             "redox"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00060",
             "00070"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "電池 でんち とは 金属 きんぞく イオン化傾向 いおんかけいこう 酸化還元 さんかかんげん 電気エネルギー でんきえねるぎー 起電力 きでんりょく battery redox",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00070",
@@ -1870,14 +2008,16 @@
             "oxidation",
             "reduction"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00069",
             "00071"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "酸化還元反応 さんかかんげんはんのう 酸化 さんか 還元 かんげん とは 酸素 さんそ 水素 すいそ 電子 でんし やり取り やりとり oxidation reduction redox",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00071",
@@ -1895,14 +2035,16 @@
             "redox",
             "electron transfer"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00070",
             "00069"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "酸化還元反応 さんかかんげんはんのう 電子 でんし やり取り やりとり なぜ 考える かんがえる 反応 はんのう electron redox",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00072",
@@ -1922,14 +2064,16 @@
             "work",
             "potential"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00003",
             "00075"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "デルタq でるたq 微小電荷 びしょうでんか 移動 いどう 仕事 しごと 電位 でんい delta q work charge potential",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00073",
@@ -1950,14 +2094,16 @@
             "electrostatic energy",
             "Joule heat"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00068",
             "00075"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "電池 でんち 仕事 しごと 静電エネルギー せいでんえねるぎー ジュール熱 じゅーるねつ 対応 たいおう QV 半分 はんぶん battery joule heat energy",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00074",
@@ -1979,14 +2125,16 @@
             "potential",
             "capacitor"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00049",
             "00075"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "極板 きょくばん プラス ぷらす マイナス まいなす 電子 でんし 移動 いどう エネルギー えねるぎー 仕事 しごと 電位 でんい なぜ electron work potential",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00075",
@@ -2006,14 +2154,16 @@
             "capacitor",
             "integration"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00068"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "静電エネルギー せいでんえねるぎー コンデンサー こんでんさー 充電 じゅうでん 積分 せきぶん 計算 けいさん トータル 1/2CV^2 electrostatic energy integration",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00076",
@@ -2033,14 +2183,16 @@
             "EMF",
             "electromotive force"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00069",
             "00073"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "電池 でんち 起電力 きでんりょく V 仕事 しごと なんで イオン化傾向 いおんかけいこう 化学エネルギー かがくえねるぎー battery emf electromotive force",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00077",
@@ -2061,14 +2213,16 @@
             "charging",
             "Joule heat"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00057",
             "00073"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "コンデンサー こんでんさー 電子 でんし もらう 充電 じゅうでん 抵抗 ていこう ジュール熱 じゅーるねつ 少しずつ すこしずつ capacitor joule heat charging",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00078",
@@ -2088,14 +2242,16 @@
             "energy",
             "electric field"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 2,
         "related": [
             "00035",
             "00079"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "エネルギー えねるぎー どこ 蓄えられる たくわえられる 極板間 きょくばんかん 電場 でんば コンデンサー こんでんさー energy stored electric field",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     },
     {
         "id": "00079",
@@ -2116,6 +2272,8 @@
             "field concept",
             "Coulomb"
         ],
+        "category": "",
+        "difficulty": "",
         "priority": 3,
         "related": [
             "00003",
@@ -2123,7 +2281,7 @@
             "00078"
         ],
         "updated_at": "2026-05-19",
-        "search_text": "電場 でんば なぜ 必要 ひつよう 考える かんがえる クーロン くーろん 場 ば 空間 くうかん エネルギー えねるぎー 概念 がいねん 力 ちから electric field concept coulomb",
-        "_note": ""
+        "_note": "",
+        "search_text": ""
     }
 ]
