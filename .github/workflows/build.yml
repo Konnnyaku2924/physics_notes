@@ -4,7 +4,7 @@ name: Build JSON
 # （ビルドスクリプト自身の変更でも動かしたい場合は scripts/build.js を追加）
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - 'q_and_a_data.json'
       - 'scripts/build.js'
