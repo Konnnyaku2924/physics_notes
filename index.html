@@ -64,6 +64,37 @@
         .search-button:active {
             opacity: 0.8;
         }
+
+        /* モード選択 */
+        .mode-row {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            margin-top: 12px;
+        }
+
+        .mode-btn {
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 999px;
+            padding: 5px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #888;
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s, background 0.15s;
+        }
+
+        .mode-btn.active {
+            border-color: #000;
+            color: #000;
+            background: #f5f5f5;
+        }
+
+        .mode-btn:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
     </style>
 </head>
 
@@ -75,6 +106,12 @@
         <div class="search-wrapper">
             <input id="search" class="search-box" type="text" placeholder="Search...">
             <button id="btn" class="search-button">Search</button>
+        </div>
+
+        <div class="mode-row">
+            <button class="mode-btn" data-mode="auto">Auto</button>
+            <button class="mode-btn" data-mode="fast">Fast</button>
+            <button class="mode-btn" data-mode="pro" disabled title="近日公開">Pro</button>
         </div>
     </div>
 
@@ -88,36 +125,59 @@
 
         const textEl = document.getElementById("text");
 
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            textEl.textContent = phrases[0];
+        } else {
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
 
-        function typeLoop() {
-            const current = phrases[phraseIndex];
+            function typeLoop() {
+                const current = phrases[phraseIndex];
 
-            if (!isDeleting) {
-                textEl.textContent = current.slice(0, charIndex + 1);
-                charIndex++;
+                if (!isDeleting) {
+                    textEl.textContent = current.slice(0, charIndex + 1);
+                    charIndex++;
 
-                if (charIndex === current.length) {
-                    isDeleting = true;
-                    setTimeout(typeLoop, 1000);
-                    return;
+                    if (charIndex === current.length) {
+                        isDeleting = true;
+                        setTimeout(typeLoop, 1000);
+                        return;
+                    }
+                } else {
+                    textEl.textContent = current.slice(0, charIndex - 1);
+                    charIndex--;
+
+                    if (charIndex === 0) {
+                        isDeleting = false;
+                        phraseIndex = (phraseIndex + 1) % phrases.length;
+                    }
                 }
-            } else {
-                textEl.textContent = current.slice(0, charIndex - 1);
-                charIndex--;
 
-                if (charIndex === 0) {
-                    isDeleting = false;
-                    phraseIndex = (phraseIndex + 1) % phrases.length;
-                }
+                setTimeout(typeLoop, isDeleting ? 50 : 80);
             }
 
-            setTimeout(typeLoop, isDeleting ? 50 : 80);
+            typeLoop();
         }
 
-        typeLoop();
+        // ===== モード選択 =====
+        const modeBtns = document.querySelectorAll('.mode-btn');
+        const modeParam = new URLSearchParams(location.search).get('mode');
+        let currentMode = modeParam || localStorage.getItem('search_mode') || 'auto';
+
+        function applyMode(mode) {
+            currentMode = mode;
+            localStorage.setItem('search_mode', mode);
+            modeBtns.forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+        }
+
+        applyMode(currentMode);
+
+        modeBtns.forEach(btn => {
+            if (!btn.disabled) {
+                btn.addEventListener('click', () => applyMode(btn.dataset.mode));
+            }
+        });
 
         // ===== 検索処理 =====
         const input = document.getElementById("search");
@@ -126,7 +186,8 @@
         function goSearch() {
             const query = input.value.trim();
             if (!query) return;
-            window.location.href = `https://legrs.github.io/physics_notes/search.html?q=${encodeURIComponent(query)}`;
+            const url = `https://legrs.github.io/physics_notes/search.html?q=${encodeURIComponent(query)}&mode=${currentMode}`;
+            window.location.href = url;
         }
 
         // Enterキー対応
