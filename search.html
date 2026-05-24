@@ -2159,6 +2159,8 @@
     let _chatContextAnswer = '';
 
     /* ── グローバル検索ヘルパー（Chat パネルからも利用） ─────── */
+
+    // Levenshtein 距離（typo 検出用）
     function _levenshtein(a, b) {
       const m = Array.from({ length: b.length + 1 }, (_, i) => [i]);
       for (let j = 0; j <= a.length; j++) m[0][j] = j;
@@ -2177,50 +2179,120 @@
       for (let i = 0; i < word.length - 1; i++) if (text.includes(word.slice(i, i + 2))) s += 0.5;
       return s;
     }
-    function _buildIndex(data) {
-      const idx = {};
-      data.forEach(item => item.search_text.split(' ').forEach(w => {
-        if (!idx[w]) idx[w] = new Set(); idx[w].add(item.id);
-      }));
-      return idx;
+
+    // ── クエリ展開（ひらがな ↔ カタカナ両形を追加） ────────────
+    function _expandQuery(q) {
+      const words = q.split(/\s+/).filter(Boolean);
+      const all = new Set(words);
+      words.forEach(w => {
+        const hira = w.replace(/[\u30a1-\u30f6]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
+        const kata = w.replace(/[\u3041-\u3096]/g, c => String.fromCharCode(c.charCodeAt(0) + 0x60));
+        if (hira !== w) all.add(hira);
+        if (kata !== w) all.add(kata);
+      });
+      return { words, expanded: [...all] };
     }
-    function _getCandidates(idx, data, words) {
+
+    // ── BM25 インデックス構築 ────────────────────────────────────
+    // terms: { word -> { df, docs: { id -> tf } } }
+    function _buildBM25Index(data) {
+      const terms = {};
+      let totalLen = 0;
+      data.forEach(item => {
+        const ts = item.search_text.toLowerCase().split(/\s+/).filter(Boolean);
+        totalLen += ts.length;
+        const tf = {};
+        ts.forEach(t => tf[t] = (tf[t] || 0) + 1);
+        Object.entries(tf).forEach(([t, freq]) => {
+          if (!terms[t]) terms[t] = { df: 0, docs: {} };
+          terms[t].df++;
+          terms[t].docs[item.id] = freq;
+        });
+      });
+      return { terms, avgdl: data.length ? totalLen / data.length : 1, N: data.length };
+    }
+
+    // 1ワード × 1アイテム の BM25 スコア（k1=1.2, b=0.75）
+    function _bm25(term, itemId, docLen, idx) {
+      const k1 = 1.2, b = 0.75;
+      const entry = idx.terms[term];
+      if (!entry) return 0;
+      const tf = entry.docs[itemId] || 0;
+      if (!tf) return 0;
+      const idf = Math.log((idx.N - entry.df + 0.5) / (entry.df + 0.5) + 1);
+      const tfn = tf * (k1 + 1) / (tf + k1 * (1 - b + b * docLen / idx.avgdl));
+      return idf * tfn;
+    }
+
+    // 候補絞り込み（インデックスにないワードは全件対象）
+    function _getCandidates(bm25idx, data, expandedWords) {
       const ids = new Set();
-      words.forEach(w => idx[w]?.forEach(id => ids.add(id)));
+      expandedWords.forEach(w => {
+        const entry = bm25idx.terms[w];
+        if (entry) Object.keys(entry.docs).forEach(id => ids.add(id));
+      });
       return ids.size === 0 ? data : data.filter(item => ids.has(item.id));
+    }
+
+    // アイテムの総合スコア（BM25 ベース + フィールドブースト）
+    function _scoreItem(item, words, expandedWords, q, bm25idx) {
+      const st = item.search_text.toLowerCase();
+      const docLen = st.split(/\s+/).length;
+      let score = 0;
+
+      // BM25 本体（展開済みワード全体で集計）
+      expandedWords.forEach(w => { score += _bm25(w, item.id, docLen, bm25idx); });
+
+      // フィールドブースト
+      if (item.questions.some(qq => qq.toLowerCase() === q)) score += 10;
+      if (st.includes(q)) score += 3;
+      item.questions.forEach(qq => { if (qq.toLowerCase().includes(q)) score += 3; });
+      words.forEach(w => {
+        item.keywords?.forEach(k => { if (k.toLowerCase().includes(w)) score += 1; });
+        score += _typoScore(w, st);
+        score += _ngramScore(w, st);
+      });
+      item.synonyms?.forEach(s => words.forEach(w => { if (s.toLowerCase().includes(w)) score += 1; }));
+      // フレーズボーナス（隣接単語ペア）
+      for (let i = 0; i < words.length - 1; i++) {
+        if (st.includes(words[i] + words[i + 1])) score += 2;
+      }
+
+      return score * (item.priority || 1);
+    }
+
+    // ── スニペット抽出（answer から関連文を取得） ────────────────
+    function _extractSnippet(item, words) {
+      // answer を文単位に分割
+      const sents = item.answer
+        .split(/(?<=[。！？\n])|(?=[A-Z][^A-Z])/)
+        .map(s => s.trim())
+        .filter(s => s.length > 5);
+      if (!sents.length) return item.description;
+
+      // 最もクエリワードを多く含む文を選ぶ
+      let best = null, bestScore = -1;
+      sents.forEach(s => {
+        const lower = s.toLowerCase();
+        const score = words.reduce((n, w) => n + (lower.includes(w) ? 1 : 0), 0);
+        if (score > bestScore) { bestScore = score; best = s; }
+      });
+
+      if (!best || bestScore === 0) return item.description;
+      return best.length > 110 ? best.slice(0, 110) + '…' : best;
     }
 
     /* クエリからスコア付き上位結果を返す（Chat パネルで使用） */
     function searchTopResult(query) {
       if (!allData) return null;
       const q = query.toLowerCase();
-      const words = q.split(' ').filter(Boolean);
+      const { words, expanded } = _expandQuery(q);
       if (!words.length) return null;
-      const idx = _buildIndex(allData);
-      const results = _getCandidates(idx, allData, words)
-        .map(item => {
-          let score = 0;
-          if (item.questions.some(qq => qq.toLowerCase() === q)) score += 10;
-          if (item.search_text.includes(q)) score += 5;
-          item.questions.forEach(qq => { if (qq.toLowerCase().includes(q)) score += 3; });
-          words.forEach(w => {
-            if (item.search_text.includes(w)) score += 1;
-            score += _typoScore(w, item.search_text);
-            score += _ngramScore(w, item.search_text);
-            // ① keywords ブースト
-            item.keywords?.forEach(k => { if (k.toLowerCase().includes(w)) score += 2; });
-          });
-          item.synonyms?.forEach(s => words.forEach(w => { if (s.includes(w)) score += 2; }));
-          // ③ フレーズボーナス（隣接単語ペア）
-          for (let i = 0; i < words.length - 1; i++) {
-            const phrase = words[i] + words[i + 1];
-            if (item.search_text.includes(phrase)) score += 2;
-          }
-          return { ...item, score: score * (item.priority || 1) };
-        })
+      const bm25idx = _buildBM25Index(allData);
+      const results = _getCandidates(bm25idx, allData, expanded)
+        .map(item => ({ ...item, score: _scoreItem(item, words, expanded, q, bm25idx) }))
         .filter(i => i.score > 0)
         .sort((a, b) => b.score - a.score);
-      // ② related ブースト（上位3件の related に含まれるアイテムを +0.5）
       const _topRelated1 = new Set(results.slice(0, 3).flatMap(r => r.related || []));
       results.forEach(r => { if (_topRelated1.has(r.id)) r.score += 0.5; });
       results.sort((a, b) => b.score - a.score);
@@ -2266,38 +2338,19 @@
         return r;
       }
 
-      let cachedIndex = null;
+      let cachedBM25 = null;
 
       fetch('https://legrs.github.io/physics_notes/q_and_a_data.json', { cache: 'no-cache' })
         .then(r => r.json())
         .then(data => {
-          if (!cachedIndex) cachedIndex = _buildIndex(data);
-          allData = data; // モーダルの関連項目用にキャッシュ
-          const words = query.split(' ').filter(Boolean);
-          const results = _getCandidates(cachedIndex, data, words)
-            .map(item => {
-              let score = 0;
-              if (item.questions.some(q => q.toLowerCase() === query)) score += 10;
-              if (item.search_text.includes(query)) score += 5;
-              item.questions.forEach(q => { if (q.toLowerCase().includes(query)) score += 3; });
-              words.forEach(w => {
-                if (item.search_text.includes(w)) score += 1;
-                score += _typoScore(w, item.search_text);
-                score += _ngramScore(w, item.search_text);
-                // ① keywords ブースト
-                item.keywords?.forEach(k => { if (k.toLowerCase().includes(w)) score += 2; });
-              });
-              item.synonyms?.forEach(s => words.forEach(w => { if (s.includes(w)) score += 2; }));
-              // ③ フレーズボーナス（隣接単語ペア）
-              for (let i = 0; i < words.length - 1; i++) {
-                const phrase = words[i] + words[i + 1];
-                if (item.search_text.includes(phrase)) score += 2;
-              }
-              return { ...item, score: score * (item.priority || 1) };
-            })
+          if (!cachedBM25) cachedBM25 = _buildBM25Index(data);
+          allData = data;
+          const { words, expanded } = _expandQuery(query);
+          const results = _getCandidates(cachedBM25, data, expanded)
+            .map(item => ({ ...item, score: _scoreItem(item, words, expanded, query, cachedBM25) }))
             .filter(i => i.score > 0)
             .sort((a, b) => b.score - a.score);
-          // ② related ブースト（上位3件の related に含まれるアイテムを +0.5）
+          // related ブースト（上位3件の related に含まれるアイテムを +0.5）
           const _topRelated2 = new Set(results.slice(0, 3).flatMap(r => r.related || []));
           results.forEach(r => { if (_topRelated2.has(r.id)) r.score += 0.5; });
           results.sort((a, b) => b.score - a.score);
@@ -2442,9 +2495,10 @@
           results.forEach(item => {
             const el = document.createElement('div');
             el.className = 'result';
+            const snippet = _extractSnippet(item, words);
             el.innerHTML = `
           <div class="result-title">${highlight(item.questions[0], words)}</div>
-          <div class="result-desc">${highlight(item.description, words)}</div>
+          <div class="result-desc">${highlight(snippet, words)}</div>
           <div class="result-hint">クリックして詳細を見る →</div>
         `;
             el.addEventListener('click', () => openModal(el, item));
