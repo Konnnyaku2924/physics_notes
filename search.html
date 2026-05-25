@@ -1872,12 +1872,9 @@
       if (skipAnim) {
         overlay.style.display = 'none';
         appEl.classList.add('visible');
-        // DOMContentLoaded後に検索実行
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', startSearchResults);
-        } else {
-          startSearchResults();
-        }
+        // startSearchResults は別スクリプトブロックのIIFE内にあるため直接呼べない
+        // フラグを立てて、定義側から呼んでもらう
+        window._animSkipped = true;
         return;
       }
 
@@ -2616,7 +2613,6 @@
           if (!cachedBM25) cachedBM25 = _buildBM25Index(data);
           allData = data;
           buildFilterBar(data);
-          updateSuggest(query);
           const { words, expanded } = _expandQuery(query);
           const results = _getCandidates(cachedBM25, data, expanded)
             .map(item => ({ ...item, score: _scoreItem(item, words, expanded, query, cachedBM25) }))
@@ -2827,6 +2823,10 @@
           });
         });
     }
+
+    // キャンバスアニメーションがスキップされた場合はここから直接起動
+    if (window._animSkipped) startSearchResults();
+
   </script>
 
   <!-- ══ Chat Panel Logic ══════════════════════════════════════ -->
