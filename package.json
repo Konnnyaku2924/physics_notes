@@ -1,11 +1,14 @@
 {
-    "name": "physics-notes-build",
-    "version": "1.0.0",
-    "description": "Build script for physics_notes JSON",
-    "scripts": {
-        "build": "node scripts/build.js"
-    },
-    "dependencies": {
-        "kuromoji": "^0.1.2"
-    }
+  "name": "physics-notes-build",
+  "version": "1.0.0",
+  "description": "Build script for physics_notes JSON",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:embed": "node scripts/build.js --embed",
+    "build:embed-only": "node scripts/build.js --embed-only"
+  },
+  "dependencies": {
+    "kuromoji": "^0.1.2",
+    "@xenova/transformers": "^2.17.2"
+  }
 }

@@ -66,12 +66,11 @@
       position: absolute;
       top: calc(100% + 6px);
       left: 0;
-      right: 44px;
-      /* AI ボタン分を除く */
+      right: 44px; /* AI ボタン分を除く */
       background: var(--bg-card);
       border: 1px solid var(--border-mid);
       border-radius: 14px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
       overflow: hidden;
       z-index: 100;
       display: none;
@@ -89,9 +88,7 @@
       transition: background 0.12s;
     }
 
-    .suggest-item:last-child {
-      border-bottom: none;
-    }
+    .suggest-item:last-child { border-bottom: none; }
 
     .suggest-item:hover,
     .suggest-item.active {
@@ -125,9 +122,7 @@
       align-items: center;
     }
 
-    #filter-bar:empty {
-      display: none;
-    }
+    #filter-bar:empty { display: none; }
 
     .filter-group {
       display: flex;
@@ -136,7 +131,7 @@
       align-items: center;
     }
 
-    .filter-group+.filter-group {
+    .filter-group + .filter-group {
       padding-left: 10px;
       border-left: 1px solid var(--border-mid);
     }
@@ -416,7 +411,29 @@
       color: inherit;
     }
 
-    /* ── キーボードナビ選択ハイライト ───────────────────────── */
+    /* ── セマンティックモード ローディング ───────────────────── */
+    #semantic-status {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 8px 0 16px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #semantic-status.visible { display: flex; }
+
+    .semantic-spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--border-mid);
+      border-top-color: var(--chat-accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
     .result.kb-selected {
       background: var(--bg-elevated);
       outline: 2px solid var(--chat-accent);
@@ -1764,6 +1781,10 @@
         </button>
         <div id="suggest-box"></div>
       </div>
+      <div id="semantic-status">
+        <div class="semantic-spinner"></div>
+        <span id="semantic-status-text">セマンティックモデルを読み込んでいます…</span>
+      </div>
       <div id="filter-bar"></div>
       <div id="ai"></div>
       <div id="results"></div>
@@ -1862,8 +1883,8 @@
 
       // ── アニメーションモード判定 ──────────────────────────────
       const urlMode = new URLSearchParams(location.search).get('mode')
-        || localStorage.getItem('search_mode')
-        || 'auto';
+                      || localStorage.getItem('search_mode')
+                      || 'auto';
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       // fast または reduced-motion のときはアニメーションなし
       const skipAnim = (urlMode === 'fast') || reducedMotion;
@@ -2199,11 +2220,11 @@
     function startStreaming(fullText, onComplete) {
       // ── モード判定（startSearchResults と同じロジック） ───────
       const _urlMode = new URLSearchParams(location.search).get('mode')
-        || localStorage.getItem('search_mode') || 'auto';
+                       || localStorage.getItem('search_mode') || 'auto';
       const _reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const _animMode = (_urlMode === 'fast') ? 'instant'
-        : _reduced ? 'line'
-          : 'char';
+                      : _reduced              ? 'line'
+                      :                        'char';
 
       isStreaming = true;
 
@@ -2411,15 +2432,102 @@
       return results[0] || null;
     }
 
-    function startSearchResults() {
+    // ── セマンティック検索エンジン ────────────────────────────
+    const SEMANTIC_MODELS = {
+      pro:   { id: 'Xenova/multilingual-e5-small', dim: 384 },
+      ultra: { id: 'Xenova/multilingual-e5-large', dim: 768 },
+    };
+    const EMBEDDINGS_URL = 'https://legrs.github.io/physics_notes/embeddings.json';
+
+    let _semanticPipeline = null;
+    let _semanticModelKey = null;
+    let _embeddingsData   = null;
+
+    function _cosineSim(a, b) {
+      let dot = 0, na = 0, nb = 0;
+      for (let i = 0; i < a.length; i++) { dot += a[i]*b[i]; na += a[i]*a[i]; nb += b[i]*b[i]; }
+      return dot / (Math.sqrt(na) * Math.sqrt(nb) + 1e-9);
+    }
+
+    async function _loadSemanticModel(modeKey) {
+      if (_semanticPipeline && _semanticModelKey === modeKey) return true;
+      const modelCfg = SEMANTIC_MODELS[modeKey];
+      if (!modelCfg) return false;
+
+      const statusEl  = document.getElementById('semantic-status');
+      const statusTxt = document.getElementById('semantic-status-text');
+      statusEl.classList.add('visible');
+      statusTxt.textContent = `モデルを読み込んでいます（初回のみ時間がかかります）…`;
+
+      try {
+        // Transformers.js をCDNから動的ロード
+        if (!window.TransformersLoaded) {
+          await new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.type = 'module';
+            s.textContent = `
+              import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2';
+              env.allowRemoteModels = true;
+              window._XenovaPipeline = pipeline;
+              window.TransformersLoaded = true;
+              document.dispatchEvent(new Event('transformers-ready'));
+            `;
+            document.head.appendChild(s);
+            document.addEventListener('transformers-ready', resolve, { once: true });
+            setTimeout(() => reject(new Error('Transformers.js load timeout')), 30000);
+          });
+        }
+
+        statusTxt.textContent = `${modeKey === 'ultra' ? 'Ultra（高精度）' : 'Pro'} モデルをダウンロード中…`;
+        _semanticPipeline = await window._XenovaPipeline('feature-extraction', modelCfg.id, { quantized: true });
+        _semanticModelKey = modeKey;
+
+        // embeddings.json をロード
+        if (!_embeddingsData) {
+          statusTxt.textContent = 'Embeddingデータを取得中…';
+          const res = await fetch(EMBEDDINGS_URL);
+          _embeddingsData = await res.json();
+        }
+
+        statusEl.classList.remove('visible');
+        return true;
+      } catch (e) {
+        statusTxt.textContent = `⚠️ モデルの読み込みに失敗しました: ${e.message}`;
+        console.error(e);
+        return false;
+      }
+    }
+
+    // クエリのEmbeddingを生成（e5はquery:プレフィックスが必要）
+    async function _getQueryEmbedding(queryText) {
+      const out = await _semanticPipeline(`query: ${queryText}`, { pooling: 'mean', normalize: true });
+      return Array.from(out.data);
+    }
+
+    // RRF スコア統合
+    function _rrfMerge(bm25Results, semanticRanked, k = 60) {
+      const scores = {};
+      const allIds = new Set([
+        ...bm25Results.map(r => r.id),
+        ...semanticRanked.map(r => r.id),
+      ]);
+      allIds.forEach(id => { scores[id] = 0; });
+      bm25Results.forEach((r, i)       => { scores[r.id] += 1 / (k + i + 1); });
+      semanticRanked.forEach((r, i)    => { scores[r.id] += 1 / (k + i + 1); });
+      return [...allIds]
+        .map(id => ({ id, rrfScore: scores[id] }))
+        .sort((a, b) => b.rrfScore - a.rrfScore);
+    }
+
+    async function startSearchResults() {
       // ── このページのアニメーションモード ──────────────────────
       const _urlMode = new URLSearchParams(location.search).get('mode')
-        || localStorage.getItem('search_mode') || 'auto';
+                       || localStorage.getItem('search_mode') || 'auto';
       const _reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       // instant: 即時表示、line: 行単位、char: 文字単位（デフォルト）
       const _animMode = (_urlMode === 'fast') ? 'instant'
-        : _reduced ? 'line'
-          : 'char';
+                      : _reduced              ? 'line'
+                      :                        'char';
 
       const rawParam = (location.search.match(/[?&]q=([^&]*)/) || ['', ''])[1];
       const query = decodeURIComponent(rawParam).toLowerCase();
@@ -2500,7 +2608,7 @@
       }
 
       function escHtml(s) {
-        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
       }
 
       input.addEventListener('input', () => updateSuggest(input.value.trim()));
@@ -2607,21 +2715,49 @@
 
       let cachedBM25 = null;
 
-      fetch('https://legrs.github.io/physics_notes/q_and_a_data.json', { cache: 'no-cache' })
-        .then(r => r.json())
-        .then(data => {
+      try {
+        const r = await fetch('https://legrs.github.io/physics_notes/q_and_a_data.json', { cache: 'no-cache' });
+        const data = await r.json();
           if (!cachedBM25) cachedBM25 = _buildBM25Index(data);
           allData = data;
           buildFilterBar(data);
+
           const { words, expanded } = _expandQuery(query);
-          const results = _getCandidates(cachedBM25, data, expanded)
+          let bm25Results = _getCandidates(cachedBM25, data, expanded)
             .map(item => ({ ...item, score: _scoreItem(item, words, expanded, query, cachedBM25) }))
             .filter(i => i.score > 0)
             .sort((a, b) => b.score - a.score);
-          // related ブースト（上位3件の related に含まれるアイテムを +0.5）
-          const _topRelated2 = new Set(results.slice(0, 3).flatMap(r => r.related || []));
-          results.forEach(r => { if (_topRelated2.has(r.id)) r.score += 0.5; });
-          results.sort((a, b) => b.score - a.score);
+          const _topRel = new Set(bm25Results.slice(0, 3).flatMap(r => r.related || []));
+          bm25Results.forEach(r => { if (_topRel.has(r.id)) r.score += 0.5; });
+          bm25Results.sort((a, b) => b.score - a.score);
+
+          // Pro / Ultra: セマンティック検索 + RRF
+          let results = bm25Results;
+          if ((_urlMode === 'pro' || _urlMode === 'ultra') && query.length > 0) {
+            const modeKey = _urlMode;
+            const loaded = await _loadSemanticModel(modeKey);
+            if (loaded && _embeddingsData?.[modeKey === 'pro' ? 'small' : 'large']) {
+              const embKey = modeKey === 'pro' ? 'small' : 'large';
+              const queryVec = await _getQueryEmbedding(query);
+              const embeddingsForMode = _embeddingsData[embKey];
+
+              // セマンティックスコアでランキング（全件対象）
+              const semanticRanked = data
+                .filter(item => embeddingsForMode[item.id])
+                .map(item => ({
+                  ...item,
+                  semScore: _cosineSim(queryVec, embeddingsForMode[item.id])
+                }))
+                .sort((a, b) => b.semScore - a.semScore);
+
+              // RRF で統合
+              const merged = _rrfMerge(bm25Results, semanticRanked);
+              const idToItem = Object.fromEntries(data.map(d => [d.id, d]));
+              results = merged
+                .map(r => ({ ...idToItem[r.id], score: r.rrfScore }))
+                .filter(Boolean);
+            }
+          }
 
           aiBox.innerHTML = '';
           resultsBox.innerHTML = '';
@@ -2825,7 +2961,11 @@
               kbSelect(-1);
             }
           });
-        });
+      } catch (e) {
+        console.error('検索データの取得に失敗しました:', e);
+        document.getElementById('results').innerHTML =
+          '<p style="color:var(--text-muted);padding:20px 0">データの取得に失敗しました。再読み込みしてください。</p>';
+      }
     }
 
     // キャンバスアニメーションがスキップされた場合はここから直接起動
@@ -3074,11 +3214,11 @@
       // ── Stream answer from local data ─────────────────────────────────
       function streamAnswer(contentEl, fullText, onDone) {
         const _urlMode = new URLSearchParams(location.search).get('mode')
-          || localStorage.getItem('search_mode') || 'auto';
+                         || localStorage.getItem('search_mode') || 'auto';
         const _reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const _animMode = (_urlMode === 'fast') ? 'instant'
-          : _reduced ? 'line'
-            : 'char';
+                        : _reduced              ? 'line'
+                        :                        'char';
 
         isAutoScroll = true;
         contentEl.innerHTML = '';

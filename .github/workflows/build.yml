@@ -7,6 +7,11 @@ on:
       - 'scripts/build.js'
       - 'package.json'
   workflow_dispatch:
+    inputs:
+      embed:
+        description: 'Embeddingも生成する'
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -22,7 +27,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-          cache: 'npm'          # node_modules をキャッシュして高速化
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -30,12 +35,16 @@ jobs:
       - name: Generate search_text
         run: node scripts/build.js
 
-      - name: Commit updated JSON
+      - name: Generate embeddings (手動実行時のみ)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.embed }}
+        run: node scripts/build.js --embed-only
+
+      - name: Commit updated files
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add q_and_a_data.json
+          git add q_and_a_data.json embeddings.json || true
           git diff --staged --quiet \
             && echo "変更なし。コミットをスキップします。" \
-            || git commit -m 'chore: auto-generate search_text [skip ci]'
+            || git commit -m 'chore: auto-generate search_text and embeddings [skip ci]'
           git push
