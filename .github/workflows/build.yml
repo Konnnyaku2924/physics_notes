@@ -32,12 +32,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate search_text
-        run: node scripts/build.js
-
-      - name: Generate embeddings (手動実行時のみ)
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.embed }}
-        run: node scripts/build.js --embed-only
+      - name: Generate search_text and embeddings
+        run: node scripts/build.js --embed
 
       - name: Commit updated files
         run: |
