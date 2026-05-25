@@ -88,7 +88,7 @@
             "potential energy",
             "electric potential"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -119,7 +119,7 @@
             "integration",
             "baumkuchen integration"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -147,7 +147,7 @@
             "spherical trigonometry",
             "integration"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -177,7 +177,7 @@
             "equation of motion",
             "conservative force"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -204,7 +204,7 @@
             "potential energy",
             "work"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -233,7 +233,7 @@
             "potential",
             "electric potential"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -262,7 +262,7 @@
             "integration",
             "work"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -293,7 +293,7 @@
             "electric field",
             "gradient"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -323,7 +323,7 @@
             "electric field line",
             "orthogonal"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -349,7 +349,7 @@
             "positive charge",
             "hole"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [],
@@ -376,7 +376,7 @@
             "electric potential",
             "universal gravitation"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -403,7 +403,7 @@
             "scalar",
             "joule"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -430,7 +430,7 @@
             "repulsion",
             "Coulomb force"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 1,
         "related": [],
@@ -453,7 +453,7 @@
             "energy",
             "work"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -481,7 +481,7 @@
             "conservation of mechanical energy",
             "conservative force"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -508,7 +508,7 @@
             "conservative force",
             "path independent"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -537,7 +537,7 @@
             "electric field",
             "surface charge"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -567,7 +567,7 @@
             "free electron",
             "equipotential"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -593,7 +593,7 @@
             "velocity",
             "conservation of energy"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -620,7 +620,7 @@
             "potential energy",
             "kinetic energy"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 1,
         "related": [
@@ -649,7 +649,7 @@
             "conductor",
             "perpendicular"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -679,7 +679,7 @@
             "electron",
             "electroscope"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -708,7 +708,7 @@
             "earth",
             "conductor"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -737,7 +737,7 @@
             "ground wire",
             "static electricity"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -764,7 +764,7 @@
             "shelter",
             "car"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 1,
         "related": [
@@ -796,7 +796,7 @@
             "electrostatic shielding",
             "Faraday cage"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -825,7 +825,7 @@
             "equation of motion",
             "Newton's second law"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -856,7 +856,7 @@
         "synonyms": [
             "conservation of mechanical energy"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -889,7 +889,7 @@
             "conservation of momentum",
             "coefficient of restitution"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -918,7 +918,7 @@
         "synonyms": [
             "Coulomb's law"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -951,7 +951,7 @@
             "Faraday's law",
             "Lenz's law"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -980,7 +980,7 @@
         "synonyms": [
             "simple harmonic motion"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1011,7 +1011,7 @@
             "capacitor",
             "capacitance"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1038,7 +1038,7 @@
         "synonyms": [
             "first law of thermodynamics"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -1067,7 +1067,7 @@
             "wavelength",
             "frequency"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1096,7 +1096,7 @@
         "synonyms": [
             "Doppler effect"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1123,7 +1123,7 @@
             "Young's double slit experiment",
             "interference"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1151,7 +1151,7 @@
         "synonyms": [
             "Lorentz force"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1179,7 +1179,7 @@
         "synonyms": [
             "kinetic theory of gases"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1208,7 +1208,7 @@
             "photoelectric effect",
             "work function"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1236,7 +1236,7 @@
         "synonyms": [
             "Bohr model"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1265,7 +1265,7 @@
             "circular motion",
             "centripetal force"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1296,7 +1296,7 @@
             "universal gravitation",
             "Kepler's laws"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1324,7 +1324,7 @@
         "synonyms": [
             "Kirchhoff's circuit laws"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1352,7 +1352,7 @@
             "Snell's law",
             "refraction"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1380,7 +1380,7 @@
             "mass defect",
             "binding energy"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1410,7 +1410,7 @@
             "charging",
             "electron"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1436,7 +1436,7 @@
             "capacitor",
             "discharge"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1464,7 +1464,7 @@
             "equilibrium",
             "voltage"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1492,7 +1492,7 @@
             "electric field",
             "voltage"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1519,7 +1519,7 @@
             "condenser",
             "etymology"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 1,
         "related": [
@@ -1548,7 +1548,7 @@
             "electric flux",
             "Gauss law"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1577,7 +1577,7 @@
             "capacitance",
             "electric capacity"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1604,7 +1604,7 @@
             "capacitance",
             "capacitor"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1633,7 +1633,7 @@
             "charging",
             "battery"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1661,7 +1661,7 @@
             "dielectric",
             "capacitance"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1691,7 +1691,7 @@
             "polarization",
             "capacitance"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1718,7 +1718,7 @@
             "lead acid battery",
             "battery"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1746,7 +1746,7 @@
             "parallel connection",
             "voltage"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1775,7 +1775,7 @@
             "equipotential",
             "electric field"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1805,7 +1805,7 @@
             "parallel",
             "capacitance"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1833,7 +1833,7 @@
             "capacitor",
             "series connection"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1862,7 +1862,7 @@
             "image formula",
             "optics"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1891,7 +1891,7 @@
             "conductor",
             "series"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1920,7 +1920,7 @@
             "series",
             "withstanding voltage"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1949,7 +1949,7 @@
             "energy",
             "battery"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -1965,7 +1965,7 @@
         "questions": [
             "電池とは？"
         ],
-        "answer": "2つの金属を使い、そのイオン化傾向の差を利用して酸化還元反応を起こし、電気エネルギーを取り出す装置。",
+        "answer": "化学：\n2つの金属を使い、そのイオン化傾向の差を利用して酸化還元反応を起こし、生じた化学エネルギーを電気エネルギーとして取り出す装置。\n物理：\n2つの金属の差がイオン化傾向の差が電位差を決める。\n端と端に電位差があって、一様な電場が生じていると、電位の高い方から低い方に、場から静電気力を受ける。だから電子が動く。\n$$ V=E\\cdot d $$\n**電子に位置エネルギーを与える**のが電池の役割。",
         "description": "電池の仕組みと定義",
         "keywords": [
             "電池",
@@ -1978,7 +1978,7 @@
             "electrochemical cell",
             "redox"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -2008,7 +2008,7 @@
             "oxidation",
             "reduction"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -2035,7 +2035,7 @@
             "redox",
             "electron transfer"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -2064,7 +2064,7 @@
             "work",
             "potential"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -2094,7 +2094,7 @@
             "electrostatic energy",
             "Joule heat"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -2125,7 +2125,7 @@
             "potential",
             "capacitor"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -2154,7 +2154,7 @@
             "capacitor",
             "integration"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -2183,7 +2183,7 @@
             "EMF",
             "electromotive force"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -2213,7 +2213,7 @@
             "charging",
             "Joule heat"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -2242,7 +2242,7 @@
             "energy",
             "electric field"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 2,
         "related": [
@@ -2272,7 +2272,7 @@
             "field concept",
             "Coulomb"
         ],
-        "category": "",
+        "category": "静電気",
         "difficulty": "",
         "priority": 3,
         "related": [
@@ -2282,6 +2282,313 @@
         ],
         "updated_at": "2026-05-19",
         "search_text": "なんで電場を考える必要がある？ クーロン力の枠組みを超えて電場の概念が必要な理由 電場 場 クーロン力 空間 エネルギー electric field field concept Coulomb ナンデデンジョウヲカンガエルヒツヨウガアル？ クーロンリョクノワクグミヲコエテデンジョウノガイネンガヒツヨウナリユウ デンジョウ バ クーロンリョク クウカン エネルギー electric field field concept Coulomb なんででんじょうをかんがえるひつようがある？ くーろんりょくのわくぐみをこえてでんじょうのがいねんがひつようなりゆう でんじょう ば くーろんりょく くうかん えねるぎー electric field field concept Coulomb",
+        "_note": ""
+    },
+    {
+        "id": "00080",
+        "questions": [
+            "電流とは？"
+        ],
+        "answer": "（導体内を）電子やイオンが移動することにより生じる流れ",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00081",
+        "questions": [
+            "直流のDCって何の略？"
+        ],
+        "answer": "ダイレクトかレッド",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00082",
+        "questions": [
+            "直流とは？"
+        ],
+        "answer": "電流の向きが一定である。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00083",
+        "questions": [
+            "交流"
+        ],
+        "answer": "電流",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00084",
+        "questions": [
+            "交流のACって何の略？"
+        ],
+        "answer": "alternate かれっど",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00085",
+        "questions": [
+            "電流を数値化するには？"
+        ],
+        "answer": "（導体内を）単位時間に移動する電気量に着目すればいい。単位は**A（アンペア）**。\n$$ 1A=1\\frac{C}{s} $$\n$$ I=\\frac{Q}{t} $$\n$$ Q=I\\cdot t $$",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00086",
+        "questions": [
+            "Q=I*tはすでにどこで学んでいる？"
+        ],
+        "answer": "化学の電気分解で、電気量を出すのに使った。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00087",
+        "questions": [
+            "96500とは？"
+        ],
+        "answer": "ファラデー定数。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00088",
+        "questions": [
+            "ファラデー定数とは？"
+        ],
+        "answer": "1molの電子が持つ電気量の絶対値。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00089",
+        "questions": [
+            "ファラデー定数でどんな問題を解いたか？",
+            "電気分解でどんな問題を解いたか？"
+        ],
+        "answer": "アルミニウムの溶融塩電解\nボーキサイト（$ Al_2O_3 $）",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00090",
+        "questions": [
+            "アルミニウムはどうして加熱ではなく電気分解するの？"
+        ],
+        "answer": "アルミニウムは酸素との結びつきが強く、Cだと取れないから。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00091",
+        "questions": [
+            "アルミニウムはどうやって作るの？"
+        ],
+        "answer": "溶融塩電解\n融解した氷晶石に溶かせて、液体にして電気を流れやすくする。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00092",
+        "questions": [
+            "電気分解の問題で、出題者は最後になんの物理量を計算させる？"
+        ],
+        "answer": "作られた金属のmol数やkgなどの総量が普通だが、\nビジネスの観点から見ると**かかる時間**が1番大事。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00093",
+        "questions": [
+            "アルミニウムは枯渇する心配がないにも関わらず、どうして我々は真面目にリサイクルするのか？"
+        ],
+        "answer": "酸化アルミニウムからアルミニウムにするのには**たくさんのエネルギーが必要**だから。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00094",
+        "questions": [
+            "電気と水流を1対1に結びつけてください。"
+        ],
+        "answer": "水流：電流\nポンプ（汲み上げる・水に位置エネルギーを与える）：電池（電子に位置エネルギーを与える）\n水車（歯車）：抵抗（エネルギーを放出する）",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00095",
+        "questions": [
+            "電子1個に電池が与える位置エネルギーは？"
+        ],
+        "answer": "$ eV $",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00096",
+        "questions": [
+            "電子（正電荷）はエネルギーをもらったら、使い切らなければいけない。どうしてか？"
+        ],
+        "answer": "電源の正極と抵抗につながっている導線と、負極と抵抗につながっている導線がそれぞれ1つの導体とみなせるので導体内部には電場が発生しない、つまり等電位なので、もらったエネルギーを全て使い切らないと電池に戻ってこれないから。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00097",
+        "questions": [
+            "オームの法則とは？"
+        ],
+        "answer": "普通の人：\n電圧と電流は比例する。\n物理：\n電流が流れてこれだけエネルギーを減らすんだ、つまり電圧降下の値が電流とリンクしている。消費したエネルギーと汲み上げたエネルギーは当然比例する。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "",
+        "search_text": "",
         "_note": ""
     }
 ]
