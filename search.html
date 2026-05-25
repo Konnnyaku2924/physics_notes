@@ -57,7 +57,120 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 30px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    /* ── Autocomplete dropdown ───────────────────────────────── */
+    #suggest-box {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 44px;
+      /* AI ボタン分を除く */
+      background: var(--bg-card);
+      border: 1px solid var(--border-mid);
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      z-index: 100;
+      display: none;
+    }
+
+    .suggest-item {
+      padding: 11px 16px;
+      font-size: 14px;
+      color: var(--text-body);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.12s;
+    }
+
+    .suggest-item:last-child {
+      border-bottom: none;
+    }
+
+    .suggest-item:hover,
+    .suggest-item.active {
+      background: var(--bg-elevated);
+    }
+
+    .suggest-icon {
+      flex-shrink: 0;
+      color: var(--text-muted);
+    }
+
+    .suggest-text mark {
+      background: none;
+      color: var(--chat-accent);
+      font-weight: 600;
+    }
+
+    .suggest-cat {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* ── Filter bar ──────────────────────────────────────────── */
+    #filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    #filter-bar:empty {
+      display: none;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .filter-group+.filter-group {
+      padding-left: 10px;
+      border-left: 1px solid var(--border-mid);
+    }
+
+    .filter-chip {
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-mid);
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .filter-chip:hover {
+      border-color: var(--chat-accent);
+      color: var(--chat-accent);
+    }
+
+    .filter-chip.active {
+      background: var(--chat-accent);
+      border-color: var(--chat-accent);
+      color: var(--chat-accent-fg);
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
     }
 
     .search-box {
@@ -1649,7 +1762,9 @@
         <button class="ai-chat-btn" id="ai-chat-btn" title="Physics AI を開く" aria-label="Physics AI">
           <img id="ai-chat-icon" src="img/ai-icon.svg" alt="AI">
         </button>
+        <div id="suggest-box"></div>
       </div>
+      <div id="filter-bar"></div>
       <div id="ai"></div>
       <div id="results"></div>
     </div>
@@ -2316,19 +2431,174 @@
       const input = document.getElementById('search');
       const aiBox = document.getElementById('ai');
       const resultsBox = document.getElementById('results');
+      const suggestBox = document.getElementById('suggest-box');
+      const filterBar = document.getElementById('filter-bar');
 
       input.value = query;
 
+      // ── サジェスト ───────────────────────────────────────────────
+      let suggestIndex = -1;
+      let suggestItems = [];
+
+      function showSuggest(items) {
+        suggestItems = items;
+        suggestIndex = -1;
+        if (!items.length) { suggestBox.style.display = 'none'; return; }
+        suggestBox.innerHTML = items.map((item, i) => `
+          <div class="suggest-item" data-i="${i}">
+            <svg class="suggest-icon" width="13" height="13" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <span class="suggest-text">${item.label}</span>
+            ${item.category ? `<span class="suggest-cat">${item.category}</span>` : ''}
+          </div>`).join('');
+        suggestBox.style.display = 'block';
+        suggestBox.querySelectorAll('.suggest-item').forEach(el => {
+          el.addEventListener('mousedown', e => {
+            e.preventDefault();
+            goSuggest(suggestItems[+el.dataset.i].q);
+          });
+        });
+      }
+
+      function hideSuggest() {
+        suggestBox.style.display = 'none';
+        suggestIndex = -1;
+      }
+
+      function goSuggest(q) {
+        hideSuggest();
+        const mode = new URLSearchParams(location.search).get('mode') || localStorage.getItem('search_mode') || 'auto';
+        location.href = `search.html?q=${encodeURIComponent(q)}&mode=${mode}`;
+      }
+
+      function updateSuggest(val) {
+        if (!allData || val.length < 1) { hideSuggest(); return; }
+        const v = val.toLowerCase();
+        const seen = new Set();
+        const items = [];
+        allData.forEach(item => {
+          item.questions.forEach(q => {
+            const ql = q.toLowerCase();
+            if (ql === query) return; // 今の検索と同じは除外
+            if (!seen.has(q) && (ql.startsWith(v) || ql.includes(v))) {
+              seen.add(q);
+              // ハイライト
+              const idx = ql.indexOf(v);
+              const label = idx >= 0
+                ? `${escHtml(q.slice(0, idx))}<mark>${escHtml(q.slice(idx, idx + v.length))}</mark>${escHtml(q.slice(idx + v.length))}`
+                : escHtml(q);
+              items.push({ q, label, category: item.category || '' });
+            }
+          });
+        });
+        // prefix 優先ソート、最大8件
+        items.sort((a, b) => {
+          const ap = a.q.toLowerCase().startsWith(v) ? 0 : 1;
+          const bp = b.q.toLowerCase().startsWith(v) ? 0 : 1;
+          return ap - bp;
+        });
+        showSuggest(items.slice(0, 8));
+      }
+
+      function escHtml(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      input.addEventListener('input', () => updateSuggest(input.value.trim()));
+      input.addEventListener('focus', () => { if (input.value.trim()) updateSuggest(input.value.trim()); });
+      document.addEventListener('click', e => {
+        if (!e.target.closest('.search-row')) hideSuggest();
+      });
+
+      // ── フィルター ────────────────────────────────────────────────
+      let activeCategory = null;
+      let activeDifficulty = null;
+      const DIFF_LABEL = { '1': '基礎', '2': '標準', '3': '発展' };
+
+      function buildFilterBar(data) {
+        const cats = [...new Set(data.map(d => d.category).filter(Boolean))].sort();
+        const diffs = [...new Set(data.map(d => String(d.difficulty || '')).filter(d => d && DIFF_LABEL[d]))];
+        diffs.sort();
+        if (!cats.length && !diffs.length) return;
+
+        let html = '';
+        if (cats.length) {
+          html += `<div class="filter-group">
+            <span class="filter-label">分野</span>
+            ${cats.map(c => `<button class="filter-chip" data-type="cat" data-val="${escHtml(c)}">${escHtml(c)}</button>`).join('')}
+          </div>`;
+        }
+        if (diffs.length) {
+          html += `<div class="filter-group">
+            <span class="filter-label">難易度</span>
+            ${diffs.map(d => `<button class="filter-chip" data-type="diff" data-val="${d}">${DIFF_LABEL[d]}</button>`).join('')}
+          </div>`;
+        }
+        filterBar.innerHTML = html;
+
+        filterBar.querySelectorAll('.filter-chip').forEach(chip => {
+          chip.addEventListener('click', () => {
+            const type = chip.dataset.type;
+            const val = chip.dataset.val;
+            if (type === 'cat') {
+              activeCategory = activeCategory === val ? null : val;
+            } else {
+              activeDifficulty = activeDifficulty === val ? null : val;
+            }
+            // チップのアクティブ状態を更新
+            filterBar.querySelectorAll('[data-type="cat"]').forEach(c =>
+              c.classList.toggle('active', c.dataset.val === activeCategory));
+            filterBar.querySelectorAll('[data-type="diff"]').forEach(c =>
+              c.classList.toggle('active', c.dataset.val === activeDifficulty));
+            applyFilters();
+          });
+        });
+      }
+
+      function applyFilters() {
+        document.querySelectorAll('.result').forEach(el => {
+          const cat = el.dataset.category || '';
+          const diff = el.dataset.difficulty || '';
+          const catOk = !activeCategory || cat === activeCategory;
+          const diffOk = !activeDifficulty || diff === activeDifficulty;
+          el.style.display = catOk && diffOk ? '' : 'none';
+        });
+      }
+
+      // ── 検索入力の Enter / サジェストキーナビ ──────────────────
       input.addEventListener('keydown', e => {
+        // サジェスト表示中のナビゲーション
+        if (suggestBox.style.display !== 'none' && suggestItems.length) {
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            suggestIndex = Math.min(suggestIndex + 1, suggestItems.length - 1);
+            suggestBox.querySelectorAll('.suggest-item').forEach((el, i) =>
+              el.classList.toggle('active', i === suggestIndex));
+            return;
+          }
+          if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            suggestIndex = Math.max(suggestIndex - 1, -1);
+            suggestBox.querySelectorAll('.suggest-item').forEach((el, i) =>
+              el.classList.toggle('active', i === suggestIndex));
+            return;
+          }
+          if (e.key === 'Enter' && suggestIndex >= 0) {
+            e.preventDefault();
+            goSuggest(suggestItems[suggestIndex].q);
+            return;
+          }
+          if (e.key === 'Escape') { hideSuggest(); return; }
+        }
         if (e.key === 'Enter' && !e.isComposing) {
           const q = input.value.trim();
           if (!q) return;
-          const newSearch = `?q=${encodeURIComponent(q)}`;
-          if (location.search === newSearch) {
-            location.reload();
-          } else {
-            location.href = `https://legrs.github.io/physics_notes/search.html${newSearch}`;
-          }
+          const mode = new URLSearchParams(location.search).get('mode') || localStorage.getItem('search_mode') || 'auto';
+          const newUrl = `search.html?q=${encodeURIComponent(q)}&mode=${mode}`;
+          if (location.href.endsWith(newUrl)) { location.reload(); }
+          else { location.href = newUrl; }
         }
       });
 
@@ -2345,6 +2615,8 @@
         .then(data => {
           if (!cachedBM25) cachedBM25 = _buildBM25Index(data);
           allData = data;
+          buildFilterBar(data);
+          updateSuggest(query);
           const { words, expanded } = _expandQuery(query);
           const results = _getCandidates(cachedBM25, data, expanded)
             .map(item => ({ ...item, score: _scoreItem(item, words, expanded, query, cachedBM25) }))
@@ -2495,6 +2767,8 @@
           results.forEach(item => {
             const el = document.createElement('div');
             el.className = 'result';
+            el.dataset.category = item.category || '';
+            el.dataset.difficulty = String(item.difficulty || '');
             const snippet = _extractSnippet(item, words);
             el.innerHTML = `
           <div class="result-title">${highlight(item.questions[0], words)}</div>
