@@ -22,8 +22,8 @@ const SKIP_TEXT = process.argv.includes('--embed-only');
 
 // ── モデル定義 ───────────────────────────────────────────────
 const MODELS = {
-  small: { id: 'Xenova/multilingual-e5-small', dim: 384 },
-  large: { id: 'Xenova/multilingual-e5-large', dim: 1024 },
+  small: { id: 'Xenova/multilingual-e5-small' },
+  large: { id: 'Xenova/multilingual-e5-large' },
 };
 
 // ── LaTeX 除去 ──────────────────────────────────────────────
@@ -85,10 +85,7 @@ async function buildEmbeddings(data) {
 
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
-      // 既に生成済みでdim数が合っていればスキップ
-      if (existing[key][item.id]?.length === model.dim) continue;
 
-      // passage プレフィックスを付けた文書テキスト
       const text = `passage: ${item.questions[0]} ${item.description}`;
       const out = await extractor(text, { pooling: 'mean', normalize: true });
       existing[key][item.id] = Array.from(out.data);
