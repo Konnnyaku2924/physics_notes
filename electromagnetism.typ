@@ -1226,6 +1226,96 @@ $unit("A") = unit("C/s")$
 
 == Ohm's law
 
+Let elementary charge $e$
+, speed of charges $v$
+, number of charges per unit volume $n$
+, surface of wire $S$
+, 
+
+#align(center,box(width:15cm, height:6cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      ortho(x:0deg, y:-80deg,{
+        circle((0,0,0),radius:2)
+        circle((0,0,10),radius:2)
+        line((0,2,0),(0,2,10))
+        line((0,-2,0),(0,-2,10))
+
+        line((1,0,5),(1,0,2), mark:(end:">",fill:black),stroke:(thickness:0.05))
+        content((1,0,5.9),$bold(e dot n)$)
+        content((1,-0.5,3.5),$bold(v)$)
+
+        let AXIS_LENGTH = 2.5
+        //line((0, 0, 0), (AXIS_LENGTH, 0, 0), mark: (end: ">", fill:black),stroke:(thickness:0.02), name: "x-axis")
+        //line((0, 0, 0), (0, AXIS_LENGTH, 0), mark: (end: ">", fill:black),stroke:(thickness:0.02), name: "y-axis")
+        //line((0, 0, 0), (0, 0, AXIS_LENGTH), mark: (end: ">", fill:black),stroke:(thickness:0.02), name: "z-axis")
+        //content("x-axis.end", [$x$], anchor: "west")
+        //content("y-axis.end", [$y$], anchor: "south")
+        //content("z-axis.end", [$z$], anchor: "north-east")
+      })
+      circle((6,0),radius:1)
+
+      content((0,0),$bold(S)$)
+    })
+  ]
+])
+$Q = e dot n dot v t dot S\
+therefore I = e n v S
+$
+#align(center,box(width:15cm, height:7cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      ortho(x:0deg, y:-80deg,{
+        circle((0,0,0),radius:2)
+        circle((0,0,10),radius:2)
+        line((0,2,0),(0,2,10))
+        line((0,-2,0),(0,-2,10))
+
+        line((1,0,5.5),(1,0,2), mark:(end:">",fill:black),stroke:(thickness:0.05))
+        content((1,0,5.9),$bold(e)$)
+        content((1,-0.5,3.5),$bold(v)="const."$)
+
+        let AXIS_LENGTH = 2.5
+        //line((0, 0, 0), (AXIS_LENGTH, 0, 0), mark: (end: ">", fill:black),stroke:(thickness:0.02), name: "x-axis")
+        //line((0, 0, 0), (0, AXIS_LENGTH, 0), mark: (end: ">", fill:black),stroke:(thickness:0.02), name: "y-axis")
+        //line((0, 0, 0), (0, 0, AXIS_LENGTH), mark: (end: ">", fill:black),stroke:(thickness:0.02), name: "z-axis")
+        //content("x-axis.end", [$x$], anchor: "west")
+        //content("y-axis.end", [$y$], anchor: "south")
+        //content("z-axis.end", [$z$], anchor: "north-east")
+      })
+      circle((6,0),radius:0.5)
+
+      content((0,1),$bold(S)$)
+      line((0,0),(-1,0))
+      line((-1,0),(-1,-4))
+      line((-1,-4),(4.8,-4))
+      line((5.2,-4),(11,-4))
+      line((11,-4),(11,0))
+      line((11,0),(10,0))
+
+      line((4.8,-3),(4.8,-5))
+      line((5.2,-3.5),(5.2,-4.5))
+      content((5,-2.8),$bold(V)$)
+
+      line((0,-1.7),(10,-1.7),mark:(start:">",end:">", fill:black))
+      content((5,-1.4),$bold(l)$)
+    })
+  ]
+])
+
+
+
+
+
+$
+  bold(V = R I)
+$
+
+
 
 
 
@@ -1246,6 +1336,7 @@ $unit("A") = unit("C/s")$
   ]
 ])
 */
+//#text(size:10pt)[( 電気力線ってsuperpositionできるの？uniformであることは積分で証明？)]
 
 /*
 
