@@ -2306,7 +2306,7 @@
         "questions": [
             "直流のDCって何の略？"
         ],
-        "answer": "ダイレクトかレッド",
+        "answer": "Direct Current",
         "description": "",
         "keywords": [],
         "synonyms": [],
@@ -2357,7 +2357,7 @@
         "questions": [
             "交流のACって何の略？"
         ],
-        "answer": "alternate かれっど",
+        "answer": "Alternating Current",
         "description": "",
         "keywords": [],
         "synonyms": [],
@@ -2606,6 +2606,142 @@
         "related": [],
         "updated_at": "2026-05-25",
         "search_text": "電位差が生じていると電流が流れるのはなぜ？ 電流 デンイサガショウジテイルトデンリュウガナガレルノハナゼ？ デンリュウ でんいさがしょうじているとでんりゅうがながれるのはなぜ？ でんりゅう",
+        "_note": ""
+    },
+    {
+        "id": "00099",
+        "questions": [
+            "どうして電圧と電流が比例関係になっているのか？"
+        ],
+        "answer": "電子は電池から位置エネルギーをもらっており、それをなんとかして使いたい。歯車を動かすことでエネルギーを失う。2倍の水が流れれば2倍のエネルギーを使い、3倍の水が流れればを使えば3倍のエネルギーを失う。ほら、比例でしょ？\n\n電池の電圧と電圧降下が同じであり、電圧降下と電流が比例関係にあるから、3段論法で電池の電圧と電流は比例する。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "2026-05-26",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00100",
+        "questions": [
+            "電圧降下とは？"
+        ],
+        "answer": "抵抗に入る前は電位はVだった。そして抵抗内部では電位が下がっている。これを電圧降下という。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "2026-05-26",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00101",
+        "questions": [
+            "なぜ抵抗内部では電圧が下がる？"
+        ],
+        "answer": "電池の+極から抵抗の+極までは導線で繋がれており導体で、電池の-極から抵抗の-極までも同様であり、それぞれ等電位だから、もらったエネルギーを全て消費してこないといけないから。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "2026-05-26",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00102",
+        "questions": [
+            "電子の数から電流の値を求めるにはどうすればよいか？"
+        ],
+        "answer": "**単位時間あたりに移動する電気量**を求めれば良い。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "2026-05-26",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00103",
+        "questions": [
+            "$$ I=envS $$から何がわかる？"
+        ],
+        "answer": "e：電気素量\nn：電子の密度=単位体積あたりの電子の数\nv：電子の速さだから、傾きを大きくすればするほど流れることになる。\nS：細ければ電流はあまり流れないが、太ければ流れることになる。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "2026-05-26",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00104",
+        "questions": [
+            "なんで電子の数をカウントするのか？"
+        ],
+        "answer": "数の数え方について一緒に考えよう。\n例えば数学の時間で、これは何個ありますか？と聞かれたとき、（組み合わせや要素の個数とか）どういうふうにして数勘定していたか？\n→樹形図、$ nPn $、$ nCn $\n単発で$ nCn $で解ける問題は2次には出ない。場合分けで足し合わせるときに、重複して数えていることがないことを確認して足し算する。（1,2,3が独立していることを確認して、もれなく数えているから成り立つ。）\n例：$ N $人のトーナメントでは、全部で$ N-1 $試合行う。\nこれはN人中1人が勝利して、N-1人は必ず一回負ける必要があるからである。\n移動しているものをカウントするのは難しいが、決められた時間の間に断面を通過する電子の個数を数えるのは楽である。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "2026-05-26",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00105",
+        "questions": [
+            "電池と導線をつないだとき、導線内の電子が静電気力をうけるのはなぜ？"
+        ],
+        "answer": "potentialの傾きは電位差である。このとき、導線内では一様な電場があり、静電気力が加わる。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "2026-05-26",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00106",
+        "questions": [
+            "電位差があるとどうして電子は動こうとする？"
+        ],
+        "answer": "potentialの傾きは電位差である。このとき、導線内では一様な電場があり、静電気力が加わる。\nそして、力が加わっているだけでは電子は永遠に加速してしまう。しかし、",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 0,
+        "related": [],
+        "updated_at": "2026-05-26",
+        "search_text": "",
         "_note": ""
     }
 ]
