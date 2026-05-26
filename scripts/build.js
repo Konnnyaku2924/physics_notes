@@ -53,6 +53,7 @@ function getReading(tokenizer, text) {
 function buildSearchText(tokenizer, item) {
   const fields = [
     ...(item.questions || []),
+    item.answer || '',
     item.description || '',
     ...(item.keywords || []),
     ...(item.synonyms || []),
