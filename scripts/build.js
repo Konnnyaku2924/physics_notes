@@ -50,6 +50,8 @@ function getReading(tokenizer, text) {
 }
 
 // ── search_text 生成 ──────────────────────────────────────
+// BM25はスペース区切りのトークン単位で動作するため、
+// 句読点などを除いた形態素（surface_form）も個別に追加する
 function buildSearchText(tokenizer, item) {
   const fields = [
     ...(item.questions || []),
@@ -60,9 +62,19 @@ function buildSearchText(tokenizer, item) {
     item.category || '',
   ];
   const cleaned = fields.map(s => stripLatex(String(s))).filter(Boolean).join(' ');
+
+  // 形態素に分解してスペース区切りで追加（BM25用）
+  // 記号・助詞1文字などは除外してノイズを減らす
+  const morphemes = tokenizer.tokenize(cleaned)
+    .map(t => t.surface_form.trim())
+    .filter(t => t.length >= 2 || /[a-zA-Z0-9]/.test(t))  // 2文字未満の日本語記号は除外
+    .join(' ');
+
+  // 読み（カタカナ・ひらがな）
   const kata = getReading(tokenizer, cleaned);
   const hira = toHiragana(kata);
-  const parts = new Set([cleaned]);
+
+  const parts = new Set([cleaned, morphemes]);
   if (kata !== cleaned) parts.add(kata);
   if (hira !== cleaned && hira !== kata) parts.add(hira);
   return [...parts].join(' ').replace(/\s+/g, ' ').trim();

@@ -2325,15 +2325,26 @@
       return s;
     }
 
-    // ── クエリ展開（ひらがな ↔ カタカナ両形を追加） ────────────
+    // ── クエリ展開（ひらがな ↔ カタカナ + CJKバイグラム） ─────
     function _expandQuery(q) {
       const words = q.split(/\s+/).filter(Boolean);
       const all = new Set(words);
       words.forEach(w => {
+        // ひらがな・カタカナ相互変換
         const hira = w.replace(/[\u30a1-\u30f6]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
         const kata = w.replace(/[\u3041-\u3096]/g, c => String.fromCharCode(c.charCodeAt(0) + 0x60));
         if (hira !== w) all.add(hira);
         if (kata !== w) all.add(kata);
+
+        // CJKバイグラム展開（日本語を2文字単位で分解）
+        // 例: "物理とは" → ["物理", "理と", "とは"]
+        // これにより形態素レベルのBM25トークンと一致できる
+        const cjk = w.replace(/[^\u3000-\u9fff\uff00-\uffef]/g, '');
+        if (cjk.length >= 2) {
+          for (let i = 0; i < cjk.length - 1; i++) {
+            all.add(cjk.slice(i, i + 2));
+          }
+        }
       });
       return { words, expanded: [...all] };
     }
