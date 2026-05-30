@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Search Debug — Mode Comparison</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script>
+    (function () {
+      var stored = localStorage.getItem('dark_mode');
+      var sys = window.matchMedia('(prefers-color-scheme:dark)').matches;
+      if (stored !== null ? stored === '1' : sys) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-surface: #fafafa;
+      --bg-elevated: #f5f5f5;
+      --bg-card: #ffffff;
+      --text-primary: #111111;
+      --text-body: #222222;
+      --text-secondary: #555555;
+      --text-muted: #888888;
+      --border: #eeeeee;
+      --border-mid: #e0e0e0;
+      --border-dark: #cccccc;
+      --accent: #3b82f6;
+      --accent-fg: #ffffff;
+      --legacy-color: #8b5cf6;
+      --fast-color: #10b981;
+      --pro-color: #3b82f6;
+      --ultra-color: #f59e0b;
+      --score-bg: #f0f4ff;
+      --score-border: #c7d2fe;
+    }
+
+    html.dark {
+      --bg: #0a0a0a;
+      --bg-surface: #111111;
+      --bg-elevated: #1a1a1a;
+      --bg-card: #0f0f0f;
+      --text-primary: #f2f2f2;
+      --text-body: #cccccc;
+      --text-secondary: #999999;
+      --text-muted: #666666;
+      --border: #222222;
+      --border-mid: #2a2a2a;
+      --border-dark: #333333;
+      --score-bg: #1a1a2e;
+      --score-border: #2d2d5e;
+    }
+
+    html.dark body { color-scheme: dark; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-body);
+      line-height: 1.5;
+    }
+
+    /* ── Layout ────────────────────────────────── */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      flex-shrink: 0;
+    }
+
+    .header-badge {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: var(--accent);
+      color: var(--accent-fg);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    /* ── Search bar ────────────────────────────── */
+    .search-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 18px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border-dark);
+      outline: none;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      transition: border-color 0.15s;
+    }
+
+    .search-input:focus { border-color: var(--accent); }
+
+    .search-btn {
+      padding: 12px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      background: var(--accent);
+      color: var(--accent-fg);
+      cursor: pointer;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+    }
+
+    .search-btn:hover { opacity: 0.85; }
+    .search-btn:disabled { opacity: 0.4; cursor: default; }
+
+    /* ── Status bar ────────────────────────────── */
+    #status-bar {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      margin-bottom: 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-mid);
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    #status-bar.visible { display: flex; }
+
+    .status-spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--border-mid);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Grid ──────────────────────────────────── */
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 1100px) {
+      .mode-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .mode-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Mode column ──────────────────────────── */
+    .mode-col {
+      background: var(--bg-card);
+      border: 1px solid var(--border-mid);
+      border-radius: 14px;
+      overflow: hidden;
+      min-height: 200px;
+    }
+
+    .mode-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .mode-name {
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .mode-col[data-mode="legacy"] .mode-name { color: var(--legacy-color); }
+    .mode-col[data-mode="fast"] .mode-name { color: var(--fast-color); }
+    .mode-col[data-mode="pro"] .mode-name { color: var(--pro-color); }
+    .mode-col[data-mode="ultra"] .mode-name { color: var(--ultra-color); }
+
+    .mode-col[data-mode="legacy"] { border-top: 3px solid var(--legacy-color); }
+    .mode-col[data-mode="fast"] { border-top: 3px solid var(--fast-color); }
+    .mode-col[data-mode="pro"] { border-top: 3px solid var(--pro-color); }
+    .mode-col[data-mode="ultra"] { border-top: 3px solid var(--ultra-color); }
+
+    .mode-count {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .mode-body {
+      padding: 8px;
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+
+    .mode-empty {
+      padding: 24px 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* ── Result item ──────────────────────────── */
+    .result-item {
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin-bottom: 4px;
+      transition: background 0.12s;
+      cursor: default;
+    }
+
+    .result-item:hover {
+      background: var(--bg-elevated);
+    }
+
+    .result-rank {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .result-question {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+
+    .result-id {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .result-score {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--score-bg);
+      border: 1px solid var(--score-border);
+      color: var(--accent);
+      margin-left: 6px;
+    }
+
+    .result-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    /* ── Score breakdown ──────────────────────── */
+    .score-details {
+      margin-top: 6px;
+      display: none;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 11px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .score-details.open { display: block; }
+
+    .score-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .score-line-label { flex: 1; }
+
+    .score-line-value {
+      font-weight: 700;
+      font-family: monospace;
+      min-width: 50px;
+      text-align: right;
+    }
+
+    .score-line-value.positive { color: #22c55e; }
+    .score-line-value.zero { color: var(--text-muted); }
+    .score-line-value.multiplier { color: var(--ultra-color); }
+
+    .score-toggle {
+      font-size: 11px;
+      color: var(--accent);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-weight: 500;
+    }
+
+    .score-toggle:hover { text-decoration: underline; }
+
+    /* ── Dark mode toggle ─────────────────────── */
+    .dark-toggle {
+      margin-left: auto;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-mid);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--text-body);
+      transition: background 0.15s;
+    }
+
+    .dark-toggle:hover { background: var(--border-dark); }
+
+    /* ── Info box ──────────────────────────────── */
+    .info-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-mid);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .info-box strong { color: var(--text-primary); }
+
+    .mode-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: #fff;
+    }
+
+    .mode-tag.legacy { background: var(--legacy-color); }
+    .mode-tag.fast { background: var(--fast-color); }
+    .mode-tag.pro { background: var(--pro-color); }
+    .mode-tag.ultra { background: var(--ultra-color); }
+
+    /* Elapsed time */
+    .mode-time {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header>
+      <h1>🔍 Search Debug</h1>
+      <span class="header-badge">Mode Comparison</span>
+      <button class="dark-toggle" id="dark-toggle">🌓 テーマ切替</button>
+    </header>
+
+    <div class="info-box">
+      <strong>使い方：</strong>検索クエリを入力して実行すると、4つの検索モードでの結果を並べて比較できます。<br>
+      <span class="mode-tag legacy">Legacy</span> 旧スコアリング（完全一致+10, search_text全文+5, 質問部分+3, 単語+1, keywords+2, synonyms+2, フレーズ+2, typo+1~2, n-gram+0.5, related+0.5, priority乗算）<br>
+      <span class="mode-tag fast">Fast</span> BM25 + フィールドブースト（現行のfast/autoモード）
+      <span class="mode-tag pro">Pro</span> BM25 + E5-small セマンティック + RRF
+      <span class="mode-tag ultra">Ultra</span> BM25 + E5-large セマンティック + RRF
+    </div>
+
+    <div class="search-row">
+      <input id="search-input" class="search-input" type="text" placeholder="検索クエリを入力…" autofocus>
+      <button id="search-btn" class="search-btn">検索</button>
+    </div>
+
+    <div id="status-bar">
+      <div class="status-spinner"></div>
+      <span id="status-text">読み込み中…</span>
+    </div>
+
+    <div class="mode-grid" id="mode-grid">
+      <div class="mode-col" data-mode="legacy">
+        <div class="mode-header">
+          <span class="mode-name">Legacy</span>
+          <span class="mode-count" id="count-legacy"></span>
+          <span class="mode-time" id="time-legacy"></span>
+        </div>
+        <div class="mode-body" id="body-legacy">
+          <div class="mode-empty">検索結果なし</div>
+        </div>
+      </div>
+      <div class="mode-col" data-mode="fast">
+        <div class="mode-header">
+          <span class="mode-name">Fast</span>
+          <span class="mode-count" id="count-fast"></span>
+          <span class="mode-time" id="time-fast"></span>
+        </div>
+        <div class="mode-body" id="body-fast">
+          <div class="mode-empty">検索結果なし</div>
+        </div>
+      </div>
+      <div class="mode-col" data-mode="pro">
+        <div class="mode-header">
+          <span class="mode-name">Pro</span>
+          <span class="mode-count" id="count-pro"></span>
+          <span class="mode-time" id="time-pro"></span>
+        </div>
+        <div class="mode-body" id="body-pro">
+          <div class="mode-empty">検索結果なし</div>
+        </div>
+      </div>
+      <div class="mode-col" data-mode="ultra">
+        <div class="mode-header">
+          <span class="mode-name">Ultra</span>
+          <span class="mode-count" id="count-ultra"></span>
+          <span class="mode-time" id="time-ultra"></span>
+        </div>
+        <div class="mode-body" id="body-ultra">
+          <div class="mode-empty">検索結果なし</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ══════════════════════════════════════════════════════════════════════
+    //  Debug Search — All scoring engines
+    // ══════════════════════════════════════════════════════════════════════
+
+    let allData = null;
+    let embeddingsData = null;
+    let semanticPipeline = null;
+    let semanticModelKey = null;
+
+    const EMBEDDINGS_URL = 'https://legrs.github.io/physics_notes/embeddings.json';
+    const DATA_URL       = 'https://legrs.github.io/physics_notes/q_and_a_data.json';
+    const SEMANTIC_MODELS = {
+      pro:   { id: 'Xenova/multilingual-e5-small', dim: 384  },
+      ultra: { id: 'Xenova/multilingual-e5-large',  dim: 1024 },
+    };
+
+    // ── Dark mode toggle ──────────────────────────────────────────────
+    document.getElementById('dark-toggle').addEventListener('click', () => {
+      const isDark = !document.documentElement.classList.contains('dark');
+      document.documentElement.classList.toggle('dark', isDark);
+      localStorage.setItem('dark_mode', isDark ? '1' : '0');
+    });
+
+    // ── Shared helpers ────────────────────────────────────────────────
+    function levenshtein(a, b) {
+      const m = Array.from({ length: b.length + 1 }, (_, i) => [i]);
+      for (let j = 0; j <= a.length; j++) m[0][j] = j;
+      for (let i = 1; i <= b.length; i++)
+        for (let j = 1; j <= a.length; j++)
+          m[i][j] = b[i - 1] === a[j - 1]
+            ? m[i - 1][j - 1]
+            : Math.min(m[i - 1][j - 1] + 1, m[i][j - 1] + 1, m[i - 1][j] + 1);
+      return m[b.length][a.length];
+    }
+
+    function typoScore(word, text) {
+      let best = Infinity;
+      text.split(' ').forEach(t => { const d = levenshtein(word, t); if (d < best) best = d; });
+      return best === 1 ? 2 : best === 2 ? 1 : 0;
+    }
+
+    function ngramScore(word, text) {
+      let s = 0;
+      for (let i = 0; i < word.length - 1; i++) if (text.includes(word.slice(i, i + 2))) s += 0.5;
+      return s;
+    }
+
+    function expandQuery(q) {
+      const words = q.split(/\s+/).filter(Boolean);
+      const all = new Set(words);
+      words.forEach(w => {
+        const hira = w.replace(/[\u30a1-\u30f6]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
+        const kata = w.replace(/[\u3041-\u3096]/g, c => String.fromCharCode(c.charCodeAt(0) + 0x60));
+        if (hira !== w) all.add(hira);
+        if (kata !== w) all.add(kata);
+      });
+      return { words, expanded: [...all] };
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  LEGACY scoring  (旧ロジック)
+    // ══════════════════════════════════════════════════════════════════
+    function legacyScore(item, words, q, allResults) {
+      const st = item.search_text.toLowerCase();
+      const breakdown = {
+        exact_question: 0,
+        search_text_full: 0,
+        question_partial: 0,
+        search_text_word: 0,
+        keywords_boost: 0,
+        synonyms_boost: 0,
+        phrase_bonus: 0,
+        typo_correction: 0,
+        ngram_bigram: 0,
+        related_boost: 0,
+        priority_mult: item.priority || 1,
+      };
+
+      // 完全一致（質問文） +10
+      if (item.questions.some(qq => qq.toLowerCase() === q)) breakdown.exact_question = 10;
+
+      // search_text全文一致 +5
+      if (st.includes(q)) breakdown.search_text_full = 5;
+
+      // 質問文に部分一致 +3
+      item.questions.forEach(qq => {
+        if (qq.toLowerCase().includes(q)) breakdown.question_partial = 3;
+      });
+
+      // search_text単語一致 +1 per word
+      words.forEach(w => {
+        if (st.includes(w)) breakdown.search_text_word += 1;
+      });
+
+      // keywords ブースト +2
+      words.forEach(w => {
+        item.keywords?.forEach(k => {
+          if (k.toLowerCase().includes(w)) breakdown.keywords_boost = Math.max(breakdown.keywords_boost, 2);
+        });
+      });
+
+      // synonyms ブースト +2
+      words.forEach(w => {
+        item.synonyms?.forEach(s => {
+          if (s.toLowerCase().includes(w)) breakdown.synonyms_boost = Math.max(breakdown.synonyms_boost, 2);
+        });
+      });
+
+      // フレーズボーナス +2
+      for (let i = 0; i < words.length - 1; i++) {
+        if (st.includes(words[i] + words[i + 1])) { breakdown.phrase_bonus = 2; break; }
+      }
+
+      // typo補正（レーベンシュタイン距離） +1~2
+      words.forEach(w => {
+        breakdown.typo_correction += typoScore(w, st);
+      });
+
+      // n-gram（bigram） +0.5/bigram
+      words.forEach(w => {
+        breakdown.ngram_bigram += ngramScore(w, st);
+      });
+
+      const rawScore =
+        breakdown.exact_question +
+        breakdown.search_text_full +
+        breakdown.question_partial +
+        breakdown.search_text_word +
+        breakdown.keywords_boost +
+        breakdown.synonyms_boost +
+        breakdown.phrase_bonus +
+        breakdown.typo_correction +
+        breakdown.ngram_bigram;
+
+      // related boost is applied after initial ranking (top 3)
+      // We handle this outside and add later
+
+      const finalScore = rawScore * breakdown.priority_mult;
+
+      return { score: finalScore, rawScore, breakdown };
+    }
+
+    function runLegacy(data, q) {
+      const { words } = expandQuery(q);
+      if (!words.length) return [];
+
+      // First pass: score all items
+      let results = data.map(item => {
+        const { score, rawScore, breakdown } = legacyScore(item, words, q, null);
+        return { ...item, score, rawScore, breakdown };
+      }).filter(r => r.score > 0).sort((a, b) => b.score - a.score);
+
+      // related ブースト: 上位3件のrelated IDに含まれる場合 +0.5
+      const topRelated = new Set(results.slice(0, 3).flatMap(r => r.related || []));
+      results.forEach(r => {
+        if (topRelated.has(r.id)) {
+          r.breakdown.related_boost = 0.5;
+          r.score += 0.5;
+        }
+      });
+      results.sort((a, b) => b.score - a.score);
+
+      return results;
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  FAST scoring (BM25 + field boosts, current production logic)
+    // ══════════════════════════════════════════════════════════════════
+    function buildBM25Index(data) {
+      const terms = {};
+      let totalLen = 0;
+      data.forEach(item => {
+        const ts = item.search_text.toLowerCase().split(/\s+/).filter(Boolean);
+        totalLen += ts.length;
+        const tf = {};
+        ts.forEach(t => tf[t] = (tf[t] || 0) + 1);
+        Object.entries(tf).forEach(([t, freq]) => {
+          if (!terms[t]) terms[t] = { df: 0, docs: {} };
+          terms[t].df++;
+          terms[t].docs[item.id] = freq;
+        });
+      });
+      return { terms, avgdl: data.length ? totalLen / data.length : 1, N: data.length };
+    }
+
+    function bm25Score(term, itemId, docLen, idx) {
+      const k1 = 1.2, b = 0.75;
+      const entry = idx.terms[term];
+      if (!entry) return 0;
+      const tf = entry.docs[itemId] || 0;
+      if (!tf) return 0;
+      const idf = Math.log((idx.N - entry.df + 0.5) / (entry.df + 0.5) + 1);
+      const tfn = tf * (k1 + 1) / (tf + k1 * (1 - b + b * docLen / idx.avgdl));
+      return idf * tfn;
+    }
+
+    function getCandidates(bm25idx, data, expandedWords) {
+      const ids = new Set();
+      expandedWords.forEach(w => {
+        const entry = bm25idx.terms[w];
+        if (entry) Object.keys(entry.docs).forEach(id => ids.add(id));
+      });
+      return ids.size === 0 ? data : data.filter(item => ids.has(item.id));
+    }
+
+    function fastScoreItem(item, words, expandedWords, q, bm25idx) {
+      const st = item.search_text.toLowerCase();
+      const docLen = st.split(/\s+/).length;
+      const breakdown = {
+        bm25: 0,
+        exact_question: 0,
+        search_text_full: 0,
+        question_partial: 0,
+        keywords: 0,
+        synonyms: 0,
+        typo: 0,
+        ngram: 0,
+        phrase: 0,
+        related_boost: 0,
+        priority_mult: item.priority || 1,
+      };
+
+      // BM25
+      expandedWords.forEach(w => { breakdown.bm25 += bm25Score(w, item.id, docLen, bm25idx); });
+
+      // Field boosts
+      if (item.questions.some(qq => qq.toLowerCase() === q)) breakdown.exact_question = 10;
+      if (st.includes(q)) breakdown.search_text_full = 3;
+      item.questions.forEach(qq => { if (qq.toLowerCase().includes(q)) breakdown.question_partial = 3; });
+      words.forEach(w => {
+        item.keywords?.forEach(k => { if (k.toLowerCase().includes(w)) breakdown.keywords += 1; });
+        breakdown.typo += typoScore(w, st);
+        breakdown.ngram += ngramScore(w, st);
+      });
+      item.synonyms?.forEach(s => words.forEach(w => { if (s.toLowerCase().includes(w)) breakdown.synonyms += 1; }));
+      for (let i = 0; i < words.length - 1; i++) {
+        if (st.includes(words[i] + words[i + 1])) { breakdown.phrase = 2; break; }
+      }
+
+      const raw = breakdown.bm25 + breakdown.exact_question + breakdown.search_text_full +
+        breakdown.question_partial + breakdown.keywords + breakdown.synonyms +
+        breakdown.typo + breakdown.ngram + breakdown.phrase;
+
+      return { score: raw * breakdown.priority_mult, rawScore: raw, breakdown };
+    }
+
+    function runFast(data, q) {
+      const { words, expanded } = expandQuery(q);
+      if (!words.length) return [];
+
+      const bm25idx = buildBM25Index(data);
+      let results = getCandidates(bm25idx, data, expanded).map(item => {
+        const { score, rawScore, breakdown } = fastScoreItem(item, words, expanded, q, bm25idx);
+        return { ...item, score, rawScore, breakdown };
+      }).filter(r => r.score > 0).sort((a, b) => b.score - a.score);
+
+      const topRel = new Set(results.slice(0, 3).flatMap(r => r.related || []));
+      results.forEach(r => {
+        if (topRel.has(r.id)) {
+          r.breakdown.related_boost = 0.5;
+          r.score += 0.5;
+        }
+      });
+      results.sort((a, b) => b.score - a.score);
+
+      return results;
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  Semantic helpers (shared by Pro/Ultra)
+    // ══════════════════════════════════════════════════════════════════
+    function cosineSim(a, b) {
+      let dot = 0, na = 0, nb = 0;
+      for (let i = 0; i < a.length; i++) { dot += a[i] * b[i]; na += a[i] * a[i]; nb += b[i] * b[i]; }
+      return dot / (Math.sqrt(na) * Math.sqrt(nb) + 1e-9);
+    }
+
+    function rrfMerge(bm25Results, semanticRanked, k = 60) {
+      const scores = {};
+      const allIds = new Set([
+        ...bm25Results.map(r => r.id),
+        ...semanticRanked.map(r => r.id),
+      ]);
+      allIds.forEach(id => { scores[id] = 0; });
+      bm25Results.forEach((r, i) => { scores[r.id] = (scores[r.id] || 0) + 1 / (k + i + 1); });
+      semanticRanked.forEach((r, i) => { scores[r.id] = (scores[r.id] || 0) + 1 / (k + i + 1); });
+      return [...allIds]
+        .map(id => ({ id, rrfScore: scores[id] }))
+        .sort((a, b) => b.rrfScore - a.rrfScore);
+    }
+
+    async function loadSemanticModel(modeKey) {
+      if (semanticPipeline && semanticModelKey === modeKey) return true;
+      const modelCfg = SEMANTIC_MODELS[modeKey];
+      if (!modelCfg) return false;
+
+      showStatus(`${modeKey === 'ultra' ? 'Ultra' : 'Pro'} モデルを読み込み中…`);
+
+      try {
+        if (!window.TransformersLoaded) {
+          await new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.type = 'module';
+            s.textContent = `
+              import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2';
+              env.allowRemoteModels = true;
+              window._XenovaPipeline = pipeline;
+              window.TransformersLoaded = true;
+              document.dispatchEvent(new Event('transformers-ready'));
+            `;
+            document.head.appendChild(s);
+            document.addEventListener('transformers-ready', resolve, { once: true });
+            setTimeout(() => reject(new Error('Transformers.js load timeout')), 120000);
+          });
+        }
+
+        showStatus(`${modeKey === 'ultra' ? 'Ultra (E5-large)' : 'Pro (E5-small)'} モデルをダウンロード中…`);
+        semanticPipeline = await window._XenovaPipeline('feature-extraction', modelCfg.id, { quantized: true });
+        semanticModelKey = modeKey;
+
+        if (!embeddingsData) {
+          showStatus('Embeddingデータを取得中…');
+          const res = await fetch(EMBEDDINGS_URL);
+          embeddingsData = await res.json();
+        }
+
+        hideStatus();
+        return true;
+      } catch (e) {
+        hideStatus();
+        console.error(e);
+        return false;
+      }
+    }
+
+    async function getQueryEmbedding(queryText) {
+      const out = await semanticPipeline(`query: ${queryText}`, { pooling: 'mean', normalize: true });
+      return Array.from(out.data);
+    }
+
+    async function runSemantic(data, q, modeKey) {
+      const { words, expanded } = expandQuery(q);
+      if (!words.length) return [];
+
+      // Get BM25 results first (same as fast)
+      const bm25idx = buildBM25Index(data);
+      let bm25Results = getCandidates(bm25idx, data, expanded).map(item => {
+        const { score } = fastScoreItem(item, words, expanded, q, bm25idx);
+        return { ...item, score };
+      }).filter(r => r.score > 0).sort((a, b) => b.score - a.score);
+
+      const topRel = new Set(bm25Results.slice(0, 3).flatMap(r => r.related || []));
+      bm25Results.forEach(r => { if (topRel.has(r.id)) r.score += 0.5; });
+      bm25Results.sort((a, b) => b.score - a.score);
+
+      const loaded = await loadSemanticModel(modeKey);
+      if (!loaded) return bm25Results.map(r => ({ ...r, breakdown: { rrf: r.score, note: 'Semantic model failed to load' } }));
+
+      const embKey = modeKey === 'pro' ? 'small' : 'large';
+      if (!embeddingsData?.[embKey]) return bm25Results.map(r => ({ ...r, breakdown: { rrf: r.score, note: 'No embeddings data' } }));
+
+      const queryVec = await getQueryEmbedding(q);
+      const embeddingsForMode = embeddingsData[embKey];
+
+      const semanticRanked = data
+        .filter(item => embeddingsForMode[item.id])
+        .map(item => ({
+          ...item,
+          semScore: cosineSim(queryVec, embeddingsForMode[item.id])
+        }))
+        .sort((a, b) => b.semScore - a.semScore);
+
+      const merged = rrfMerge(bm25Results, semanticRanked);
+      const idToItem = Object.fromEntries(data.map(d => [d.id, d]));
+
+      // Find BM25 rank and semantic rank for breakdown
+      const bm25RankMap = {};
+      bm25Results.forEach((r, i) => { bm25RankMap[r.id] = { rank: i + 1, score: r.score }; });
+      const semRankMap = {};
+      semanticRanked.forEach((r, i) => { semRankMap[r.id] = { rank: i + 1, score: r.semScore }; });
+
+      return merged
+        .filter(r => r.rrfScore > 0)
+        .map(r => {
+          const item = idToItem[r.id];
+          if (!item) return null;
+          return {
+            ...item,
+            score: r.rrfScore,
+            breakdown: {
+              rrf_score: r.rrfScore,
+              bm25_rank: bm25RankMap[r.id]?.rank || '–',
+              bm25_score: bm25RankMap[r.id]?.score?.toFixed(2) || '0',
+              sem_rank: semRankMap[r.id]?.rank || '–',
+              sem_score: semRankMap[r.id]?.score?.toFixed(4) || '0',
+            }
+          };
+        })
+        .filter(Boolean);
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  UI rendering
+    // ══════════════════════════════════════════════════════════════════
+    function showStatus(msg) {
+      document.getElementById('status-bar').classList.add('visible');
+      document.getElementById('status-text').textContent = msg;
+    }
+
+    function hideStatus() {
+      document.getElementById('status-bar').classList.remove('visible');
+    }
+
+    function renderLegacyBreakdown(bd) {
+      const lines = [
+        { label: '完全一致（質問文）', value: bd.exact_question, suffix: '' },
+        { label: 'search_text 全文一致', value: bd.search_text_full, suffix: '' },
+        { label: '質問文 部分一致', value: bd.question_partial, suffix: '' },
+        { label: 'search_text 単語一致', value: bd.search_text_word, suffix: '' },
+        { label: 'keywords ブースト', value: bd.keywords_boost, suffix: '' },
+        { label: 'synonyms ブースト', value: bd.synonyms_boost, suffix: '' },
+        { label: 'フレーズボーナス', value: bd.phrase_bonus, suffix: '' },
+        { label: 'typo 補正', value: bd.typo_correction, suffix: '' },
+        { label: 'n-gram (bigram)', value: bd.ngram_bigram, suffix: '' },
+        { label: 'related ブースト', value: bd.related_boost, suffix: '' },
+      ];
+      let html = '';
+      lines.forEach(l => {
+        const cls = l.value > 0 ? 'positive' : 'zero';
+        html += `<div class="score-line"><span class="score-line-label">${l.label}</span><span class="score-line-value ${cls}">+${l.value}</span></div>`;
+      });
+      html += `<div class="score-line" style="border-top:1px solid var(--border);margin-top:4px;padding-top:4px"><span class="score-line-label"><strong>priority 乗算</strong></span><span class="score-line-value multiplier">×${bd.priority_mult}</span></div>`;
+      return html;
+    }
+
+    function renderFastBreakdown(bd) {
+      const lines = [
+        { label: 'BM25 スコア', value: bd.bm25 },
+        { label: '完全一致（質問文）', value: bd.exact_question },
+        { label: 'search_text 部分一致', value: bd.search_text_full },
+        { label: '質問文 部分一致', value: bd.question_partial },
+        { label: 'keywords', value: bd.keywords },
+        { label: 'synonyms', value: bd.synonyms },
+        { label: 'フレーズボーナス', value: bd.phrase },
+        { label: 'typo 補正', value: bd.typo },
+        { label: 'n-gram (bigram)', value: bd.ngram },
+        { label: 'related ブースト', value: bd.related_boost },
+      ];
+      let html = '';
+      lines.forEach(l => {
+        const cls = l.value > 0 ? 'positive' : 'zero';
+        const v = typeof l.value === 'number' ? l.value.toFixed(2) : l.value;
+        html += `<div class="score-line"><span class="score-line-label">${l.label}</span><span class="score-line-value ${cls}">+${v}</span></div>`;
+      });
+      html += `<div class="score-line" style="border-top:1px solid var(--border);margin-top:4px;padding-top:4px"><span class="score-line-label"><strong>priority 乗算</strong></span><span class="score-line-value multiplier">×${bd.priority_mult}</span></div>`;
+      return html;
+    }
+
+    function renderSemanticBreakdown(bd) {
+      return `
+        <div class="score-line"><span class="score-line-label">RRF スコア</span><span class="score-line-value positive">${bd.rrf_score?.toFixed(6) || bd.rrf || '–'}</span></div>
+        <div class="score-line"><span class="score-line-label">BM25 ランク / スコア</span><span class="score-line-value">#${bd.bm25_rank || '–'} (${bd.bm25_score || '–'})</span></div>
+        <div class="score-line"><span class="score-line-label">Semantic ランク / コサイン類似度</span><span class="score-line-value">#${bd.sem_rank || '–'} (${bd.sem_score || '–'})</span></div>
+        ${bd.note ? `<div style="margin-top:4px;color:var(--text-muted);font-style:italic">${bd.note}</div>` : ''}
+      `;
+    }
+
+    function renderResults(mode, results, elapsed) {
+      const body = document.getElementById(`body-${mode}`);
+      const count = document.getElementById(`count-${mode}`);
+      const time = document.getElementById(`time-${mode}`);
+
+      count.textContent = `${results.length} 件`;
+      time.textContent = `${elapsed.toFixed(0)}ms`;
+
+      if (results.length === 0) {
+        body.innerHTML = '<div class="mode-empty">0件 — スコア0超の結果なし</div>';
+        return;
+      }
+
+      body.innerHTML = '';
+
+      results.forEach((item, i) => {
+        const el = document.createElement('div');
+        el.className = 'result-item';
+
+        const scoreDisplay = (mode === 'pro' || mode === 'ultra')
+          ? item.score.toFixed(6)
+          : item.score.toFixed(2);
+
+        let breakdownHtml = '';
+        if (mode === 'legacy') breakdownHtml = renderLegacyBreakdown(item.breakdown);
+        else if (mode === 'fast') breakdownHtml = renderFastBreakdown(item.breakdown);
+        else breakdownHtml = renderSemanticBreakdown(item.breakdown);
+
+        const toggleId = `toggle-${mode}-${i}`;
+        const detailId = `detail-${mode}-${i}`;
+
+        el.innerHTML = `
+          <div class="result-rank">#${i + 1}</div>
+          <div class="result-top-row">
+            <div class="result-question">${escHtml(item.questions[0])}</div>
+            <span class="result-score">${scoreDisplay}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
+            <span class="result-id">ID: ${item.id}</span>
+            <button class="score-toggle" id="${toggleId}">▶ 内訳</button>
+          </div>
+          <div class="score-details" id="${detailId}">${breakdownHtml}</div>
+        `;
+
+        body.appendChild(el);
+
+        // Toggle breakdown
+        document.getElementById(toggleId).addEventListener('click', function () {
+          const detail = document.getElementById(detailId);
+          const open = detail.classList.toggle('open');
+          this.textContent = open ? '▼ 内訳' : '▶ 内訳';
+        });
+      });
+    }
+
+    function escHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  Main search execution
+    // ══════════════════════════════════════════════════════════════════
+    async function runAllModes(q) {
+      if (!allData) return;
+      q = q.toLowerCase().trim();
+      if (!q) return;
+
+      const searchBtn = document.getElementById('search-btn');
+      searchBtn.disabled = true;
+
+      // ── Legacy ──
+      let t0 = performance.now();
+      const legacyResults = runLegacy(allData, q);
+      renderResults('legacy', legacyResults, performance.now() - t0);
+
+      // ── Fast ──
+      t0 = performance.now();
+      const fastResults = runFast(allData, q);
+      renderResults('fast', fastResults, performance.now() - t0);
+
+      // ── Pro ──
+      t0 = performance.now();
+      showStatus('Pro モード: セマンティック検索を実行中…');
+      try {
+        const proResults = await runSemantic(allData, q, 'pro');
+        renderResults('pro', proResults, performance.now() - t0);
+      } catch (e) {
+        console.error('Pro search failed:', e);
+        renderResults('pro', [], performance.now() - t0);
+      }
+
+      // ── Ultra ──
+      t0 = performance.now();
+      showStatus('Ultra モード: セマンティック検索を実行中…');
+      try {
+        const ultraResults = await runSemantic(allData, q, 'ultra');
+        renderResults('ultra', ultraResults, performance.now() - t0);
+      } catch (e) {
+        console.error('Ultra search failed:', e);
+        renderResults('ultra', [], performance.now() - t0);
+      }
+
+      hideStatus();
+      searchBtn.disabled = false;
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    //  Init
+    // ══════════════════════════════════════════════════════════════════
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+
+    searchBtn.addEventListener('click', () => {
+      const q = searchInput.value.trim();
+      if (q) runAllModes(q);
+    });
+
+    searchInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.isComposing) {
+        const q = searchInput.value.trim();
+        if (q) runAllModes(q);
+      }
+    });
+
+    // Load data on init
+    (async () => {
+      showStatus('Q&Aデータを読み込み中…');
+      try {
+        const r = await fetch(DATA_URL, { cache: 'no-cache' });
+        allData = await r.json();
+        hideStatus();
+
+        // If URL has ?q=..., auto-run
+        const urlQ = new URLSearchParams(location.search).get('q');
+        if (urlQ) {
+          searchInput.value = urlQ;
+          runAllModes(urlQ);
+        }
+      } catch (e) {
+        showStatus('⚠️ データの読み込みに失敗しました: ' + e.message);
+        console.error(e);
+      }
+    })();
+  </script>
+
+</body>
+
+</html>
