@@ -2141,7 +2141,7 @@
         "questions": [
             "C[F]のコンデンサーがV[V]で充電された時、静電エネルギーはトータルでいくら？"
         ],
-        "answer": "積分するのは、極板間の電圧がためたチャージによって変わるから。（万有引力と同様の考え方）\nここで、ちょっとだけチャージ（万有引力では仕事）を加える\n電位差は一定と考える。よって長方形、これが$$ \\Delta W $$に相当する。\n「ちょっと足す」を繰り返してQ[C]になった時、つまり充電完了、電池と同じ起電力になった時、ちょうど長方形を足し合わせた面積が、電荷が受ける仕事になる。",
+        "answer": "積分するのは、極板間の電圧がためたチャージによって変わるから。（万有引力と同様の考え方）\nここで、ちょっとだけチャージ（万有引力では仕事）を加える\n電位差は一定と考える。よって長方形、これが$ \\Delta W $に相当する。\n「ちょっと足す」を繰り返して$ Q[C] $になった時、つまり充電完了、電池と同じ起電力になった時、ちょうど長方形を足し合わせた面積が、電荷が受ける仕事になる。",
         "description": "コンデンサーの静電エネルギーを積分によって導出する",
         "keywords": [
             "静電エネルギー",
@@ -3001,7 +3001,7 @@
             "加法定理を証明せよ。"
         ],
         "answer": "教科書には載っていない方法で証明する。\n$$ Z\\left(\\theta\\right)=\\cos\\theta+i\\sin\\theta $$\n$$ Z\\left(\\alpha+\\beta\\right)=Z\\left(\\beta\\right)\\cdot Z\\left(\\alpha\\right) $$\n$$ Z\\left(\\alpha+\\beta\\right)=\\cos\\left(\\alpha+\\beta\\right)+i\\sin\\left(\\alpha+\\beta\\right) $$\n$$ Z\\left(\\beta\\right)\\cdot Z\\left(\\alpha\\right)=\\left(\\cos\\beta+\\imaginaryI\\sin\\beta\\right)\\cdot\\left(\\cos\\alpha+\\imaginaryI\\sin\\alpha\\right)=\\left(\\cos\\alpha\\cos\\beta-\\sin\\alpha\\sin\\beta\\right)+\\imaginaryI\\left(\\sin\\alpha\\cos\\beta+\\cos\\alpha\\sin\\beta\\right) $$\nこれで、$ sin $と$ cos $双方の加法定理が証明された。",
-        "description": "教科書には載っていない方法で証明する。\n$$ Z\\left(\\theta\\right)=\\cos\\theta+i\\sin\\theta $$\n$$ Z\\left(\\alpha+\\beta\\right)=Z\\left(\\beta\\right)\\cdot Z\\left(\\alpha\\right) $$\n$$ Z\\left(\\alpha+\\beta\\right)=\\cos\\left(\\alpha+\\beta\\right)+i\\sin\\left(\\alpha+\\beta\\right) $$\n$$ Z\\left(\\beta\\right)\\cdot Z\\left(\\alpha\\right)=\\left(\\cos\\beta+\\imaginaryI\\sin\\beta\\right)\\cdot\\left(\\cos\\alpha+\\imaginaryI\\sin\\alpha\\right)=\\left(\\cos\\alpha\\cos\\beta-\\sin\\alpha\\sin\\beta\\right)+\\imaginaryI\\left(\\sin\\alpha\\cos\\beta+\\cos\\alpha\\sin\\beta\\right) $$\nこれで、$ sin $と$ cos $双方の加法定理が証明された。",
+        "description": "教科書には載っていない方法での証明",
         "keywords": [
             "複素数"
         ],
@@ -3057,7 +3057,7 @@
         "questions": [
             "導線があり、電池が繋がれている。電流が流れるということは、導体内の電子が動く。それはなぜ？"
         ],
-        "answer": "抵抗の中に電場が現れる。\nなぜ？→電場の中に電子という荷電粒子があり、これは場から力を受ける。これは負の電荷を持つので、逆向きに力を受ける。これが静電気力。このままでは加速してしまうが、これを打ち消す力である**抵抗力**が働く。スイッチを入れた直後は加速するが、しだいに静電気力と抵抗力が釣り合い、一定の速度で移動していく。",
+        "answer": "抵抗の中に電場が現れる。\nなぜ？→電場の中に電子という荷電粒子があり、これは場から力を受ける。これは負の電荷を持つので、逆向きに力を受ける。これが静電気力。このままでは加速してしまうが、これを打ち消す力である**抵抗力**が働く。スイッチを入れた直後は加速するが、しだいに静電気力と抵抗力が釣り合い、一定の速度で移動していく。\n\n```\n                                   電場 E = V / l\n                                     /\n           .------------------------/--.\n         .'  -------------------------> '.\n        /    <--(-)  静電気力             \\\n    +--|                                   |--+\n    |  |     ------------------------->    |  |\n    |  |     <--(-)          <--(-)-->     |  |\n    |  |                         抵抗力 kv |  |\n    |   \\    ------------------------->   /   |\n    |    '.                             .'    |\n    |      '---------------------------'      |\n    |        <---------- l ---------->        |\n    |                                         |\n    |                |                        |\n    `----------------|   |--------------------'\n                     |   |\n                     |\n                 V\n```",
         "description": "",
         "keywords": [],
         "synonyms": [],
