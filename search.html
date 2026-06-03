@@ -2608,16 +2608,64 @@
           });
         }
 
-        statusTxt.textContent = `${modeKey === 'ultra' ? 'Ultra（高精度）' : 'Pro'} モデルをダウンロード中…`;
-        _semanticPipeline = await window._XenovaPipeline('feature-extraction', modelCfg.id, { quantized: true });
+        // モデルダウンロード（progress_callback で進捗表示）
+        const label = modeKey === 'ultra' ? 'Ultra' : 'Pro';
+        statusTxt.textContent = `${label} モデルをダウンロード中…`;
+
+        _semanticPipeline = await window._XenovaPipeline(
+          'feature-extraction',
+          modelCfg.id,
+          {
+            quantized: true,
+            progress_callback: (p) => {
+              if (!p || !p.file) return;
+              // 主要なモデルファイル（onnx）の進捗だけ表示
+              const isMainFile = p.file.includes('model') || p.file.includes('onnx');
+              if (!isMainFile) return;
+
+              if (p.status === 'downloading' || p.status === 'progress') {
+                const pct = Math.round(p.progress ?? 0);
+                const mb = p.loaded ? ` (${(p.loaded / 1024 / 1024).toFixed(0)}MB` +
+                  (p.total ? `/${(p.total / 1024 / 1024).toFixed(0)}MB)` : ')') : '';
+                statusTxt.textContent = `${label} モデルをダウンロード中… ${pct}%${mb}`;
+              } else if (p.status === 'done') {
+                statusTxt.textContent = `${label} モデルの読み込み完了`;
+              }
+            }
+          }
+        );
         _semanticModelKey = modeKey;
 
-        // embeddings.json をロード
+        // embeddings.json をストリームで取得して進捗表示
         if (!_embeddingsData) {
-          statusTxt.textContent = 'Embeddingデータを取得中…';
+          statusTxt.textContent = 'Embeddingデータをダウンロード中…';
           const res = await fetch(EMBEDDINGS_URL);
           if (!res.ok) throw new Error(`Embedding取得失敗: HTTP ${res.status}`);
-          _embeddingsData = await res.json();
+
+          const total = parseInt(res.headers.get('content-length') || '0');
+          const reader = res.body.getReader();
+          const chunks = [];
+          let loaded = 0;
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            chunks.push(value);
+            loaded += value.length;
+            if (total > 0) {
+              const pct = Math.round(loaded / total * 100);
+              const mb = `${(loaded / 1024 / 1024).toFixed(1)}MB/${(total / 1024 / 1024).toFixed(1)}MB`;
+              statusTxt.textContent = `Embeddingデータをダウンロード中… ${pct}% (${mb})`;
+            } else {
+              statusTxt.textContent = `Embeddingデータをダウンロード中… ${(loaded / 1024 / 1024).toFixed(1)}MB`;
+            }
+          }
+
+          // チャンクを結合してJSONパース
+          const buf = new Uint8Array(chunks.reduce((n, c) => n + c.length, 0));
+          let offset = 0;
+          for (const chunk of chunks) { buf.set(chunk, offset); offset += chunk.length; }
+          _embeddingsData = JSON.parse(new TextDecoder().decode(buf));
         }
 
         statusEl.classList.remove('visible');
