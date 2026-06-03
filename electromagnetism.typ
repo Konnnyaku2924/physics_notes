@@ -17,7 +17,7 @@
 )
 
 #set text(
-  font: ("New Computer Modern"),
+  font: ("Noto Sans CJK JP"),
   size: 16pt,
 )
 
@@ -31,9 +31,9 @@
 #set page(numbering: "1")
 #set math.equation(numbering:"(1)")
 #show heading : set align(center)
-#show heading.where(level:1) : set text(size: 30pt)
-#show heading.where(level:2) : set text(size: 20pt)
-#show heading.where(level:3) : set text(size: 17pt)
+#show heading.where(level:1) : set text(size: 30pt,font: ("New Computer Modern"))
+#show heading.where(level:2) : set text(size: 20pt,font: ("New Computer Modern"))
+#show heading.where(level:3) : set text(size: 17pt,font: ("New Computer Modern"))
 //#show heading : set text(font : "New Computer Modern Uncial")
 #set list(marker: [--],)
 
@@ -41,7 +41,7 @@
 
 // タイトル部分
 #align(center + horizon)[
-  #text(size: 35pt, weight: "bold")[Physics Note]
+  #text(size: 35pt, weight: "bold",font: ("New Computer Modern"))[Physics Note]
   #v(0em)
   #text(size: 13pt)[Matsumotofukashi High School\ 240620 Tsuyoshi Kobayashi]
   #v(0em)
@@ -1028,7 +1028,8 @@ dielectric constant : $ epsilon_r = epsilon / epsilon_0$
       line((-1,-2),(1,-2))
       line((0,-2),(0,-3))
 
-      content((-0.1,0), highlight(fill:white)[_C_])
+      content((-0.1,0), highlight(fill:white)[　])
+      content((-0.1,0), $C$)
 
       content((-1,2.5), $bold(+ Q)$)
       content((-1,-2.5), $bold(- Q)$)
@@ -1320,7 +1321,7 @@ because velocity of electron $bold(v) = "const."$
 #text(size:10pt)[ ※ energyが低い$eq.not$安定]
 
 #h(2em)
-$k v = e V/l \
+$bold(k v = e V/l) \
 <=> v = e V/(l k) quad ( v prop E )\
 <=> I = e n dot e V/(l k) dot S quad ( because I = e n v S ) \
 <=> I = e^2 n S / (k l) dot V  \ 
@@ -1337,9 +1338,9 @@ $
 $
 
 \
+// 0529 物理はすすめずに複素数やりました
 
-#h(2em)
-$R = 1/(e^2 n) dot l/S wide$ Let $1/(e^2 n)$ as $rho$, 
+$R = 1/(e^2 n) dot l/S wide$ Let $1/(e^2 n)$ as $bold(rho)$, 
 $
   bold(R = rho l/S)
 $
@@ -1351,21 +1352,23 @@ $rho$ is called *resistivity* and depends on substances. ( resistivity of almini
 
 #pagebreak()
 
-Resistivity also depends on templature  due to thermal motion.
+#text(size:10pt)[ いまさらだが保存力ってけっこう難しい．fieldを解析してどうなったら保存力なんだろう．位置にのみ依存することが必要条件になってはいそう．十分条件はなんなの　直感的な理解が足りていません。百足らず様がお通りになられたせいでしょうか。]
+
+*Resistivity also depends on templature  due to thermal motion.*
+
+This is related to ratio of electron's moving speed to poisitive ion's moiton speed.
+
+#text(size:10pt)[ constantな電圧をかけたら，抵抗値は時間発展するの？する？]
+
 $
-  rho approx rho_0 dot ( 1 + a t )
+  bold(rho(t) approx rho_0 dot ( 1 + a t ))
 $
 $rho_0$ is resistivity at $t=0$, t is templature.
 $alpha$ is called *templature coefficient of resistivity*.
 
 
+#text(size:10pt)[ たまに千石電商の服きてたらついに指摘されてちょっとうれしい．普通のこの服はデザインセンスがあると思う]
 
-// 0529 物理はすすめずに複素数やりました
-
-
-
-
-#text(size:10pt)[ いまさらだが保存力ってけっこう難しい．fieldを解析してどうなったら保存力なんだろう．位置にのみ依存することが必要条件になってはいそう．十分条件はなんなの　直感的な理解が足りていません。百足らず様がお通りになられたせいでしょうか。]
 
 
 
