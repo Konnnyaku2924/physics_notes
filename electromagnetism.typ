@@ -1367,7 +1367,9 @@ $rho_0$ is resistivity at $t=0$, t is templature.
 $alpha$ is called *templature coefficient of resistivity*.
 
 
-#text(size:10pt)[ たまに千石電商の服きてたらついに指摘されてちょっとうれしい．普通のこの服はデザインセンスがあると思う]
+#text(size:10pt)[ たまに千石電商の服きてたらついに指摘されてちょっとうれしい．普通のこの服はデザインセンスがあると思う．高いだけある]
+
+// 物理はすすめずに区分求積をやりました
 
 
 
