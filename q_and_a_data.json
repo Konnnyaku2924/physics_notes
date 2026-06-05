@@ -3155,5 +3155,159 @@
         "updated_at": "2026-06-03",
         "search_text": "の一次近似は？ のとき、 2項定理より、 は無視して、移項すると、 となる。 数学 近似 とき 2 定理 より 無視 移項 する なる 数学 ノイチジキンジハ？ ノトキ、 2コウテイリヨリ、 ハムシシテ、イコウスルト、 トナル。 スウガク のいちじきんじは？ のとき、 2こうていりより、 はむしして、いこうすると、 となる。 すうがく",
         "_note": ""
+    },
+    {
+        "id": "00129",
+        "questions": [
+            "ジュール熱とは？"
+        ],
+        "answer": "最初は電池がエネルギーを持っていた。電池は電子にエネルギーを与えた。\nそして電子は電位差が高いところに移動した。\n電子は電位差という名の滑り台を滑っていき、位置エネルギーを失う代わりに運動エネルギーが増える。\n陽イオンに激突して振動し、温度が高くなる。\n温度が高いところから低いところに熱が伝わる、それがジュール熱。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-05",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00130",
+        "questions": [
+            "ジュール熱の大きさは？"
+        ],
+        "answer": "ジュールの法則より、\n$$ Q=IVt $$\nこれについては理由は問わない。受け入れてくれというスタンス。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-05",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00131",
+        "questions": [
+            "電力量とは？"
+        ],
+        "answer": "電気の持つエネルギー量のこと。\n$$ W=IVt $$",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-05",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00132",
+        "questions": [
+            "電力とは？"
+        ],
+        "answer": "単位時間あたりの電気のエネルギーのこと。\n$$ P=IV $$",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-05",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00133",
+        "questions": [
+            "αからβまでの面積が$ S=\\int_{\\alpha}^{\\beta}f\\left(x\\right)dx $となるのはなぜ？",
+            "面積を求めるときに積分するのはなぜ？"
+        ],
+        "answer": "長方形に分割して求める。\nこの近似の精度を上げるためには、もっと刻み幅を小さくする。\n究極の刻み幅、つまり0にもっていく。\n長方形の面積を$ \\Delta S $とおく。左下の角のx座標を$ x_i $、右下の角のx座標を$ x_{i+1} $とする。\nまた、$ x_{i+1}とする。\n$$ S=\\sum_i^{ }f\\left(x_i\\right)\\Delta x $$ \n（これをAとする）\nまた、$ \\frac{dy}{dx} $は$ \\frac{0}{0} $を表し、これは数Ⅲで定義できる。\nこれは素朴に考えても値は求まらないが、ここで微分の定義に立ち返る。\n微分とは、x近辺でのF(x)の変化率を求めること。\nしかし、Aは$ 0+0+0+0+… $という無限の足し算となり、定義できない。\n値のはっきりしないものが気がつくとはっきりした値（定積分）になる、\nつまり$ \\frac{0}{0} $という不定形から、$ \\frac{dy}{dx} $になるまでになにが起こるか？\n\\Delta xというのは、バーチャル世界の住人だ。\n左側（$ S $）はリアルの世界の住人。$ \\Delta x $という**バーチャル世界の住人を抹殺する**必要がある。\n$$ S=\\sum_i^{ }f\\left(x_i\\right)\\Delta x $$\n$$ =\\lim_{\\Delta x\\to0}\\sum_{ }^{ }\\frac{F\\left(x_{i+1}\\right)-F\\left(x\\right)}{x_{i+1}-x_i}\\Delta x $$\n$$ =\\lim_{\\Delta x\\to0}\\sum_{ }^{ }F\\left(x_{i+1}\\right)-F\\left(x\\right) $$\nまずこれで、$ \\Delta x $の抹殺に成功した。\n$$ =F(右はし)-F(右はしひとつ左)+F(ひとつ左)-F(ふたつ左)+F(ふたつ左)-F(みっつ左)…+F(左はしひとつ右)-F(左はし)$$\n$$ =F(\\beta)-F(\\alpha) $$\nこれが定積分である。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "数学",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-05",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00134",
+        "questions": [
+            "微分とは？"
+        ],
+        "answer": "$$ \\lim_{h\\to0}\\frac{F\\left(x+h\\right)-F\\left(x\\right)}{h} $$\n$$ \\lim_{\\Delta x\\to0}\\frac{F\\left(x+\\Delta x\\right)-F\\left(x\\right)}{\\Delta x} $$\nこれはx近辺での変化の割合（変化率）を求めることを表す。\nここで、\n$$ f\\left(x\\right)=\\lim_{\\Delta x\\to0}\\frac{F\\left(x+\\Delta x\\right)-F\\left(x\\right)}{\\Delta x} $$\nとすると、$ F(x) $は原始関数となる。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "数学",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-05",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00135",
+        "questions": [
+            "バーチャル世界の住人とは？"
+        ],
+        "answer": "長方形に分ける。\nさらに分割する。\nn等分すると足し合わせる回数はn倍する。\n結局やっていることは変わらない。\n$$ めんせき\\cdot\\frac{1}{n}\\cdotかいすう\\cdot n $$",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "数学",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-05",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00136",
+        "questions": [
+            "熱力学第1法則とは？"
+        ],
+        "answer": "$$ \\Delta U=Q+W $$\n$ \\Delta U $は内部エネルギーの増加分に相当する。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "熱力学",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-05",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00137",
+        "questions": [
+            "内部エネルギーとは？"
+        ],
+        "answer": "箱の中のエネルギー（内部エネルギー）は、ミクロに見た場合には**粒子の運動エネルギーの総和**である。\nこれを具体的に式で表すと、\n$$ U=\\frac{3}{2}nRT $$\n（これをAとする）\nこれは**温度をエネルギーに組み込むために作られたもの**だとこの教員は考える。\n本当は巨視的な見方で考える分野だが、内部エネルギーの意味についてはミクロに踏み込まないと理解しづらい。\n1. 熱を加える。熱を加えると気体の分子運動が激しくなる。これは気体の分子運動の尺度。\n2. 力学で仕事を加える。（例：シリンダーで圧縮する）\nこれ、Aはイコールで結ばれているが、平均値は0だけど、いっぱい動き回る。これが内部エネルギー。\n力学的エネルギーの場合は方向があって仕事をした。\nそれに対して、気体の場合は方向を失って、エントロピーが増えた。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "熱力学",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-05",
+        "search_text": "",
+        "_note": ""
     }
 ]
