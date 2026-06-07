@@ -1,7 +1,7 @@
 # 松本深志高校　3年物理ノート
 
 ノート　Note：\
-<https://github.com/legrs/physics_notes/blob/master/electromagnetism.pdf>
+<https://legrs.github.io/physics_notes/electromagnetism.pdf>
 
 
 先生とのQ&Aデータベース検索エンジン　Q&A database search engine for faculty：\
