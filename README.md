@@ -1,6 +1,10 @@
 # 松本深志高校　3年物理ノート
 
-先生とのQ&Aデータベース↓\
+ノート：\
+<https://github.com/legrs/physics_notes/blob/master/electromagnetism.pdf>
+
+
+先生とのQ&Aデータベース検索エンジン：\
 <https://legrs.github.io/physics_notes/>
 
 ## データベースの書き方
