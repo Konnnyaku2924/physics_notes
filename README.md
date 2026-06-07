@@ -3,7 +3,6 @@
 ノート　Note：\
 <https://legrs.github.io/physics_notes/electromagnetism.pdf>
 
-
 先生とのQ&Aデータベース検索エンジン　Q&A database search engine for faculty：\
 <https://legrs.github.io/physics_notes/>
 
