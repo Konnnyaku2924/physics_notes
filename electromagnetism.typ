@@ -1381,7 +1381,7 @@ $alpha$ is called *templature coefficient of resistivity*.
 
 $W $ : generating heat by current  - *Joule heat*
 $
-  bold(W = I V t = Q V)
+  bold(W = Q V = I V t)
 $
 
 - *Electrical Energy*$[upright(M L T^(-2))]$(電力量) - Work which is done by current(charge)
@@ -1397,19 +1397,25 @@ $
 work which done from field $ W = e dot V/l dot v t  dot n S l = e n v S dot V dot t = I V t$
 
 
-//#text(size:10pt)[ 教員：日本語はscienceに向いていない　←用語だけenglishにするのはよく見る]
+//#text(size:10pt)[ 教員：日本語はscienceに向いていない　←用語だけenglishにするのは割とアリだと思うんだけどな…]
+
+#text(size:10pt)[ ※ Thermal energyは、定義が"ambiguous"なため議論には使えない(使いづらい)]
+
+#text(size:10pt)[ heatは「macroscopicな力学で説明できないenergyの移動(energy transfer)」と定義されている]
+
+#text(size:10pt)[ "heatが発生する"という記述ができる　高温な物体は何かしらの方法(emisionなど)で"heatを発生させる"から、"抵抗のある導体に電流が流れると*熱が発生する*。これをジュール熱と呼ぶ。"という記述ができるっぽい。「熱」って高校物理で直感的じゃない定義ナンバーワンじゃないか…？]
+
+// 授業で初「perfect answer」が出ました
+// 
 
 
 
 
 
+// 陽イオンの振動→高い温度→
 
-
-
-
-
-// IDE「電位差があることと電場が生まれることの間にはどのような関係がある」　-> id 00010, 00108, 00109
-// 電位は単位電荷の持つpotential energyなので，電位が位置によって違うということは，そこには力の場が存在する必要があるから
+// IDE「電位差があることと電場が生まれることの間にはどのような関係がある」
+// how is this:電位は単位電荷の持つpotential energyなので，電位が位置によって違うということは，そこには力の場が存在する必要があるから
 
 
 
