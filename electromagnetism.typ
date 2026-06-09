@@ -1388,7 +1388,7 @@ $
 
 - *Electrical Power*$[upright(M L T^(-3))]$(電力) - work per unit time
 
-#text(size:10pt)[ 教員：電力量という訳はうれしくない　　←それ]
+#text(size:10pt)[ 教員：電力量という訳はうれしくない。日本語はscienceに向かない。　　←それ]
 
 $
   bold(P"(power)" = I V = I^2 R)
