@@ -39,7 +39,7 @@
 
 
 
-// タイトル部分
+// title部分積分
 #align(center + horizon)[
   #text(size: 35pt, weight: "bold",font: ("New Computer Modern"))[Physics Note]
   #v(0em)
@@ -50,7 +50,7 @@
 ]
 
 
-#pagebreak()
+#pagebreak() //どかーん
 
 
 
@@ -1229,8 +1229,11 @@ $<eq_i>
 $unit("A") = unit("C/s")$
 
 //ダニエル電池で，Zn → Zn2+ + 2e-となって，亜鉛板に電子ができて，セロハンを通ってきたCu2+がその亜鉛板に来て，Cu2+ + 2e- → Cu とならない理由はなんですか？
+//これが次のお題。
 
 == Ohm's law
+
+//法則だから、これは受け入れるしか無い、と思ったら大間違い。
 
 Let elementary charge $e$
 , speed of charges $v$
