@@ -1504,6 +1504,297 @@ work which done by field $ W = e dot V/l dot v t  dot n S l = e n v S dot V dot 
 ])
 // 抵抗描画便利
 
+== Ammeter and Voltimeter
+=== Ammeter
+
+#align(center,box(width:15cm, height:5cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      let resistor(l,p,q)={
+        let (x1,y1) = p
+        let (x2,y2) = q
+        let d1 = x2 -x1
+        let d2 = y2 -y1
+        let d_a = calc.sqrt(d1*d1 + d2*d2)
+        let d_e1 = d1/d_a
+        let d_e2 = d2/d_a
+
+        let d_a7 = d_a/7
+
+        let rot(a,b)={
+          let (a1,a2) = a
+          let (b1,b2) = b
+          let x_ = b1*d_e1 - b2*d_e2
+          let y_ = b1*d_e2 + b2*d_e1
+          let a_2 = (a1+x_,a2+y_)
+          return a_2
+        }
+
+
+        let pre = (x1,y1)
+        let dif = (d_a7,-l)
+        let a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,-2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,-2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,-l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+      }
+
+      line((-0.1,-0.5),(-0.1,-1.5))
+      line((0.1,-0.7),(0.1,-1.3))
+      line((-0.1,-1),(-2,-1))
+      line((0.1,-1),(2,-1))
+      line((-2,-1),(-2,1))
+      line((2,-1),(2,1))
+      line((-2,1),(-1.5,1))
+      resistor(0.2,(-1.5,1),(-0.5,1))
+      line((-0.5,1),(0.5,1))
+      line((1.5,1),(2,1))
+      circle((1,1),radius:0.5)
+
+      content((1,1),"A")
+
+      line((5,0),(6.5,0))
+      line((5.5,0),(5.5,-1))
+      line((5.5,-1),(6.5,-1))
+      circle((7,0),radius:0.5)
+      resistor(0.2,(6.5,-1),(7.5,-1))
+      line((7.5,0),(9,0))
+      line((8.5,0),(8.5,-1))
+      line((7.5,-1),(8.5,-1))
+
+      content((7,0),"A")
+      content((7,-1.5),$R_A$)
+      content((7,0.8),$R_O$)
+      content((10,2),[indicates $I_O = I / n$])
+      line((7.3,0.3),(10,1.8))
+
+      content((10,-2),[$n = 1 + R_O / R_A$])
+    })
+  ]
+])
+
+=== Voltimeter
+
+
+#align(center,box(width:15cm, height:5cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      let resistor(l,p,q)={
+        let (x1,y1) = p
+        let (x2,y2) = q
+        let d1 = x2 -x1
+        let d2 = y2 -y1
+        let d_a = calc.sqrt(d1*d1 + d2*d2)
+        let d_e1 = d1/d_a
+        let d_e2 = d2/d_a
+
+        let d_a7 = d_a/7
+
+        let rot(a,b)={
+          let (a1,a2) = a
+          let (b1,b2) = b
+          let x_ = b1*d_e1 - b2*d_e2
+          let y_ = b1*d_e2 + b2*d_e1
+          let a_2 = (a1+x_,a2+y_)
+          return a_2
+        }
+
+
+        let pre = (x1,y1)
+        let dif = (d_a7,-l)
+        let a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,-2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,-2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,-l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+      }
+
+      line((-0.1,-0.5),(-0.1,-1.5))
+      line((0.1,-0.7),(0.1,-1.3))
+      line((-0.1,-1),(-2,-1))
+      line((0.1,-1),(2,-1))
+      line((-2,-1),(-2,1))
+      line((2,-1),(2,1))
+
+      line((-2,1),(-0.5,1))
+      resistor(0.2,(-0.5,1),(0.5,1))
+      line((0.5,1),(2,1))
+
+      circle((0,2),radius:0.5)
+
+      content((0,2),"V")
+
+
+      line((-1,1),(-1,2))
+      line((-1,2),(-0.5,2))
+      line((1,2),(0.5,2))
+      line((1,1),(1,2))
+
+
+      line((5,0),(7.5,0))
+
+      circle((6,0),radius:0.5, fill:white)
+      content((6,0),"V")
+      content((6,-0.9),$R_O$)
+
+      resistor(0.2,(7.5,0),(8.5,0))
+      content((8,-0.7),$R_A$)
+
+      line((8.5,0),(9,0))
+
+      line((6.3,0.3),(10,1.8))
+      content((10,2),[indicates $V_O = V / n$])
+
+      content((10,-2),[$n = 1 + R_A / R_O$])
+    })
+  ]
+])
+
+#pagebreak()
+
+=== How to observe Electromotive Force
+
+- *Electromotive Force* - "起電力"
+
+
+#align(center,box(width:15cm, height:5cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      let resistor(l,p,q)={
+        let (x1,y1) = p
+        let (x2,y2) = q
+        let d1 = x2 -x1
+        let d2 = y2 -y1
+        let d_a = calc.sqrt(d1*d1 + d2*d2)
+        let d_e1 = d1/d_a
+        let d_e2 = d2/d_a
+
+        let d_a7 = d_a/7
+
+        let rot(a,b)={
+          let (a1,a2) = a
+          let (b1,b2) = b
+          let x_ = b1*d_e1 - b2*d_e2
+          let y_ = b1*d_e2 + b2*d_e1
+          let a_2 = (a1+x_,a2+y_)
+          return a_2
+        }
+
+
+        let pre = (x1,y1)
+        let dif = (d_a7,-l)
+        let a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,-2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,-2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,2*l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+          dif = (d_a7,-l)
+        a = rot(pre,dif)
+        line(pre,a)
+        pre = a
+      }
+
+
+
+      line((-0.1,-0.5),(-0.1,-1.5))
+      line((0.1,-0.7),(0.1,-1.3))
+      content((0,-1.8),$bold(E), bold(r)$)
+
+      line((-0.1,-1),(-2,-1))
+      line((0.1,-1),(2,-1))
+
+      line((-2,-1),(-2,2))
+      line((2,-1),(2,2))
+
+      line((-2,1),(-0.5,1))
+      resistor(0.2,(-0.5,1),(0.5,1))
+      line((0.5,1),(2,1))
+
+      circle((0,2),radius:0.5)
+      content((0,2),"V")
+
+      line((-2,2),(-0.5,2))
+      line((2,2),(0.5,2))
+
+      circle((-2,0),radius:0.5, fill:white)
+      content((-2,0),"A")
+
+      line((-2.2,0.7),(-2.2,2), mark:(end:">", fill:black))
+      content((-2.5,1.3),$I$)
+    })
+  ]
+])
+
+
 
 
 
