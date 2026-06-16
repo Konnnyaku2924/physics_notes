@@ -3859,5 +3859,141 @@
         "updated_at": "2026-06-15",
         "search_text": "電池の本当の起電力を測るには？ 教科書によると、電流計に可変抵抗を繋ぎ、測定する。 このとき、グラフの傾きが内部抵抗、グラフと 軸との交点 における が電池の本当の起電力になる。 電流 電池 本当 起電 測る 教科書 よる 電流 可変 抵抗 繋ぎ 測定 する この とき グラフ 傾き 内部 抵抗 グラフ 交点 における 電池 本当 起電 なる 電流 デンチノホントウノキデンリョクヲハカルニハ？ キョウカショニヨルト、デンリュウケイニカヘンテイコウヲツナギ、ソクテイスル。 コノトキ、グラフノカタムキガナイブテイコウ、グラフト ジクトノコウテン ニオケル ガデンチノホントウノキデンリョクニナル。 デンリュウ でんちのほんとうのきでんりょくをはかるには？ きょうかしょによると、でんりゅうけいにかへんていこうをつなぎ、そくていする。 このとき、ぐらふのかたむきがないぶていこう、ぐらふと じくとのこうてん における がでんちのほんとうのきでんりょくになる。 でんりゅう",
         "_note": ""
+    },
+    {
+        "id": "00169",
+        "questions": [
+            "$ R $を変数とする関数$ \\left(\\frac{E}{R+r}\\right)^2R $の最大値は？"
+        ],
+        "answer": "可変抵抗器での消費電力$ P $は、\n$$ P=IV $$\n$$ =I^2R $$\n$$ I=\\frac{E}{R+r} $$\n$$ =\\left(\\frac{E}{R+r}\\right)^2R $$\n$$ =\\left(\\frac{E}{\\sqrt{R}+\\frac{r}{\\sqrt{R}}}\\right)^2 $$\nここで、$ P $の**最大値**は、$ \\sqrt{R}+\\frac{r}{\\sqrt{R}} $の**最小値**である。\nここで、$ \\sqrt{R}>0 $および$ \\frac{r}{\\sqrt{R}}>0 $から、相加相乗平均の関係より、\n$$ \\sqrt{R}+\\frac{r}{\\sqrt{R}}\\ge2\\sqrt{r} $$\n$$ \\left(等号成立条件は\\sqrt{R}=\\frac{r}{\\sqrt{R}}すなわちR=rのとき\\right) $$",
+        "description": "Rを変数とする消費電力の関数の最大値は？",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-16",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00170",
+        "questions": [
+            "相加相乗平均の関係を証明せよ。"
+        ],
+        "answer": "$$ \\left(\\sqrt{A}-\\sqrt{B}\\right)^2=A+B-2\\sqrt{AB}\\ge0 $$\n$$ \\frac{A+B}{2}\\ge\\sqrt{AB} $$\nまた、\n$$ \\left(A+B\\right)^2=\\left(A-B\\right)^2+4AB $$\nこれは、$ A-B $が$ 0 $のとき、最小値を取る。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-16",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00171",
+        "questions": [
+            "目の前の抵抗の値を測定するには？"
+        ],
+        "answer": "電池と電圧計、電流計を繋ぎモニターして、$ R=\\frac{V}{I} $から割り算することで抵抗の値がわかる。\nこれは素朴なやり方であり、精密には測定できない。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-16",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00172",
+        "questions": [
+            "抵抗の値を精密に測定するには？"
+        ],
+        "answer": "**ホイートストンブリッジ**を使う。\n$$ R_1:R_3=R_2:R_x $$\nしたがって、\n$$ R_x=\\frac{R_2}{R_1}\\cdot R_3 $$\nこれで求めることができる。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-16",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00173",
+        "questions": [
+            "ホイートストンブリッジが精密測定になっている理由は？"
+        ],
+        "answer": "素朴にやって失敗したのは、\n - 電圧計\n - 電流計\n - 電池\nの3つの内部抵抗が邪魔したから。\nホイートストンブリッジでは**電圧計は使っていない**ため、まず1つクリアする。\nまた、「精密な検流計」として電流計を使っているが、\n$$ 検流計での電圧降下=r_{検流計}\\cdot I=0 $$となるため検流計の内部抵抗は**抵抗の比**に影響はない。\nまた、電池の内部抵抗は、ホイートストンブリッジで測定した**抵抗の比**には影響しない。\nよって、この3つの条件を全てクリアすることができるため、ホイートストンブリッジは未知の抵抗の値を精密に測定することができる。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-16",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00174",
+        "questions": [
+            "電池の起電力を精密に測るには？"
+        ],
+        "answer": "素朴にやって失敗したのは、\n - 電圧計\n - 電流計\n - 電池\nの3つの内部抵抗が邪魔したから。電流計も電圧計も使わないとなると、測るのは不可能に思えるが、ここで出てくるのが**電位差計（）**である。電圧計は使っておらず、電池も検流計も影響はない。リボン型の抵抗につなぐ電池は$ I $に影響するが、最後の計算でキャンセルされるので、精密に測定することができる。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-16",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00175",
+        "questions": [
+            "電位差計で、電池の起電力をどうやって求める？"
+        ],
+        "answer": "Sに繋いだとき、長さlsで起きる電圧降下は、キルヒホッフの第二法則より、\n$$ E_s=\\left(r\\times l_s\\right)\\times I $$\n$$ E_x=\\left(r\\times l_x\\right)\\times I $$\n（$ Es $は電池の起電力、$ r $は単位長さあたりの抵抗）\nよって、\n$$ \\frac{E_x}{E_s}=\\frac{l_x}{l_s} $$\nしたがって、\n$$ E_x=\\frac{l_x}{l_s}\\cdot E_s $$\nこれで求めることができる。",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-16",
+        "search_text": "",
+        "_note": ""
+    },
+    {
+        "id": "00176",
+        "questions": [
+            "スイッチを入れてから、電流や電圧はどのように変わる？"
+        ],
+        "answer": "",
+        "description": "",
+        "keywords": [],
+        "synonyms": [],
+        "category": "電流",
+        "difficulty": "",
+        "priority": 2,
+        "related": [],
+        "updated_at": "2026-06-17",
+        "search_text": "",
+        "_note": ""
     }
 ]
