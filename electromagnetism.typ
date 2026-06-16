@@ -1504,8 +1504,8 @@ work which done by field $ W = e dot V/l dot v t  dot n S l = e n v S dot V dot 
 ])
 // 抵抗描画便利
 
-== Ammeter and Voltimeter
-=== Ammeter
+== Ammeter and Voltimeter / 電流計と電圧計
+=== Ammeter / 電流計
 
 #align(center,box(width:15cm, height:5cm, clip:true)[
   #place(center + horizon)[
@@ -1598,7 +1598,7 @@ work which done by field $ W = e dot V/l dot v t  dot n S l = e n v S dot V dot 
   ]
 ])
 
-=== Voltimeter
+=== Voltimeter / 電圧計
 
 
 #align(center,box(width:15cm, height:5cm, clip:true)[
