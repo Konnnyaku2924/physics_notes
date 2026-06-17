@@ -1706,7 +1706,7 @@ work which done by field $ W = e dot V/l dot v t  dot n S l = e n v S dot V dot 
 - *Electromotive Force* - "起電力"
 
 
-#align(center,box(width:15cm, height:6cm, clip:true)[
+#align(center,box(width:15cm, height:5.5cm, clip:true)[
   #place(center + horizon)[
     #cetz.canvas({
       import cetz.draw: *
@@ -1809,7 +1809,7 @@ Observing multiple $(V,I)$ points, we can determine $E$ and $I$.
 *Wheatstone bridge*
 
 
-#align(center,box(width:15cm, height:8cm, clip:true)[
+#align(center,box(width:15cm, height:6.5cm, clip:true)[
   #place(center + horizon)[
     #cetz.canvas({
       import cetz.draw: *
@@ -1913,12 +1913,133 @@ When current at G equals to $0$,
 $R_1 I_1 = R_2 I_2\
 R_3 I_1 = R_x I_2\
 <=> 
-
 $
+
+== Charge of Capacitor
+
+When a capacitor is connetced with a battery, charge of capacitor is proportional to $exp(-t/(R C))$ ( $R$ is resistance of circuit, $C$ is capacity )
 
 #pagebreak()
 
-== 
+= Semiconductor
+
+- *Intrinsic Semiconductor*真性 - Simple substance of *$"Si"$* or *$"Ge"$*. In low templature, they cannot conduct electron. In high templature, They can conduct electron.
+- *Extrinsic Semiconductor*不純物 - substance which have trace amount of *$"P"$* or *$"Al"$* in *$"Si"$* or *$"Ge"$*.
+
+\
+
+
+- *n-type semiconductor* ( negative )
+*$"P"$* have $4+1$ electrons on outermost shell.\
+$=>$ They have extra electrons.
+
+- *p-type semiconductor* ( positive )
+*$"Al"$* have $4-1$ electrons on outermost shell.\
+$=>$ They have hole of electrons ( positive hole ).
+#text(size:10pt)[( なんでこれ共有結合できるの？の？？オクテッドソクみたさなひ)]
+
+
+== P-N Junction
+#align(center,box(width:15cm, height:6cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      rect((-2,1),(0,-1))
+      rect((2,1),(0,-1))
+      line((-2,0),(-2.5,0))
+      line((2,0),(2.5,0))
+      line((-2.5,0),(-2.5,-2))
+      line((2.5,0),(2.5,-2))
+      line((-2.5,-2),(-0.1,-2))
+      line((2.5,-2),  (0.1,-2))
+
+      line((-0.1,-2 + 0.5),(-0.1,-2 - 0.5))
+      line((0.1,-2 + 0.3),(0.1,-2 - 0.2))
+
+      content((1,1.5),[N])
+      content((-1,1.5),[P])
+
+      let elec(p,q)={
+        let (x,y) = p
+        let (x_,y_) = q
+        circle((x,y),radius:0.12, fill:white)
+        content((x,y+0.05),"-")
+        line((x,y),(x+x_,y+y_),mark:(end:">", fill:black))
+      }
+      let hole(p,q)={
+        let (x,y) = p
+        let (x_,y_) = q
+        circle((x,y),radius:0.12, fill:white)
+        content((x,y),"+")
+        line((x,y),(x+x_,y+y_),mark:(end:">", fill:black))
+      }
+      elec((2,0),(-0.5,0))
+      elec((1,0),(-0.5,0))
+      elec((1.5,0.5),(-0.5,0))
+      elec((1.5,-0.5),(-0.5,0))
+      elec((0.5,0.5),(-0.5,0))
+      elec((0.5,-0.5),(-0.5,0))
+      elec((0.1,0),(0,0))
+      hole((-0.1,0),(0,0))
+
+      elec((-2,0),(-0.5,0))
+      hole((-1.8,0),(0.5,0))
+      hole((-1,0),(0.5,0))
+      hole((-1.5,0.5), (0.5,0))
+      hole((-1.5,-0.5),(0.5,0))
+      hole((-0.5,0.5), (0.5,0))
+      hole((-0.5,-0.5),(0.5,0))
+
+      circle((0,0),radius:0.4,stroke:(paint:red))
+      line((0.25,0.25),(3,2.5),stroke:(paint:red))
+      content((3,2.5),highlight(fill:white)[*recombination*])
+
+
+      /*
+      line((-0.1,-0.5),(-0.1,-1.5))
+      line((0.1,-0.7),(0.1,-1.3))
+      content((0,-1.8),$bold(V)$)
+
+      line((-0.1,-1),(-4,-1))
+      line((0.1,-1),(4,-1))
+
+      line((-4,-1),(-4,2))
+      line((4,-1),(4,2))
+
+      line((-4,2),(-3,2))
+      line((4,2),(3,2))
+
+      line((-3,2),(-2,2 + 1 * 2 / 3))
+      resistor(0.2,(-2,2 + 1 * 2 / 3),(-1,2 + 2 * 2 / 3))
+      line((-1,2 + 2 * 2 / 3),(0,2 + 3 * 2 / 3))
+      line((3,2),(2,2 + 1 * 2 / 3))
+      resistor(0.2,(2,2 + 1 * 2 / 3),(1,2 + 2 * 2 / 3))
+      line((0.9,3),(2.1,3),mark:(end:">", fill:black))
+      line((1,2 + 2 * 2 / 3),(0,2 + 3 * 2 / 3))
+
+      line((-3,2),(-2,2 - 1 * 2 / 3))
+      resistor(0.2,(-2,2 - 1 * 2 / 3),(-1,2 - 2 * 2 / 3))
+      line((-1,2 - 2 * 2 / 3),(0,2 - 3 * 2 / 3))
+      line((3,2),(2,2 - 1 * 2 / 3))
+      resistor(0.2,(2,2 - 1 * 2 / 3),(1,2 - 2 * 2 / 3))
+      line((1,2 - 2 * 2 / 3),(0,2 - 3 * 2 / 3))
+
+      line((0,0),(0,4))
+
+      circle((0,2),radius:0.5, fill:white)
+      content((0,2),"G")
+
+      content((-1.5,3.8),$R_1$)
+      content((-1.5,0.2),$R_2$)
+      content((1.5,3.8),$R_3$)
+      content((1.5,0.2),$R_x$)
+      */
+
+    })
+  ]
+])
+
 
 
 
