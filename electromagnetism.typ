@@ -2001,6 +2001,82 @@ $=>$ They have hole of electrons ( positive hole ).
   ]
 ])
 
+#pagebreak()
+
+== Transistor
+
+=== P-N-P Transistor
+#align(center,box(width:15cm, height:4cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      rect((-2,1),(0.2,-1))
+      rect((2,1),(-0.2,-1))
+
+      line((-2,0),(-3,0))
+      line((2,0),(3,0))
+      line((0,-1),(0,-2))
+      content((-3.2,0.5),[Emitter])
+      content((3.5,0.5),[Collector])
+      content((1,-2),[Base])
+
+      content((-1,0),[P])
+      content((1,0),[P])
+      content((0,0),[N])
+
+      line((6,0),(8,0),stroke:(thickness:0.1))
+      line((5.5,1.5),(6.5,0),mark:(end:">",fill:black),stroke:(thickness:0.08))
+      line((7.5,0),(8.5,1.5),stroke:(thickness:0.08))
+      line((7,0),(7,-1.5),stroke:(thickness:0.08))
+      content((5.3,1),[E])
+      content((8.7,1),[C])
+      content((7.3,-1),[B])
+
+    })
+  ]
+])
+#align(center,box(width:15cm, height:4cm, clip:true)[
+  #place(center + horizon)[
+    #cetz.canvas({
+      import cetz.draw: *
+
+      rect((-2,1),(0.2,-1))
+      rect((2,1),(-0.2,-1))
+
+      line((-2,0),(-3,0))
+      line((2,0),(3,0))
+      line((0,-1),(0,-2))
+      content((-3.2,0.5),[Emitter])
+      content((3.5,0.5),[Collector])
+      content((1,-2),[Base])
+
+      content((-1,0),[N])
+      content((1,0),[N])
+      content((0,0),[P])
+
+      line((6,0),(8,0),stroke:(thickness:0.1))
+      line((5.5,1.5),(6.5,0),mark:(start:">",fill:black),stroke:(thickness:0.08))
+      line((7.5,0),(8.5,1.5),stroke:(thickness:0.08))
+      line((7,0),(7,-1.5),stroke:(thickness:0.08))
+      content((5.3,1),[E])
+      content((8.7,1),[C])
+      content((7.3,-1),[B])
+
+    })
+  ]
+])
+
+
+- Base semiconductor is very thin.
+
+#text(size:10pt)[( なんでこれスイッチングできる？？dificult)]
+
+// npn型トランジスタのベースにからエミッタに電流を流したときなんですけど，
+//p型半導体には常に一定数の電子のホールがないといけないから結局エミッタとコレクタは導通しないんじゃないですか？
+
+
+//amplify
 
 
 
@@ -2015,7 +2091,7 @@ $=>$ They have hole of electrons ( positive hole ).
 // spacing in equation  :  thin med thick quad wide
 // 保存力 -> id 00018
 
-
+//#text(size:10pt)[( なんでこれ共有結合できるの？の？？オクテッドソクみたさなひ)]
 
 //高校物理「仕事は保存される」 
 //大学の古典力学「$integral (dt K(t)-U(t))$が停留点となる経路が実現される」
